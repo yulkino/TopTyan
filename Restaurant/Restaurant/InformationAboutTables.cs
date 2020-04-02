@@ -27,7 +27,7 @@ namespace Restaurant
         {
             for (var i = 0; i < 9; i++)
             {
-                Tables[i] = 8;
+                Tables[i] = (int)TableState.EmptyTable;
             }
         }
 

@@ -8,6 +8,9 @@ namespace Restaurant
 {
     public class RestaurantCreation 
     {
+        public void Main()
+        {
 
+        }
     }
 }

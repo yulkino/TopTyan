@@ -10,9 +10,18 @@ namespace Restaurant
     {
         private static List<int> NoteBook = new List<int>();
 
-        public Waiter() 
+        public Waiter(InformationAboutTables.TableState tableState) 
         {
+            if(NoteBook.Count < 5)
+                NoteBook.Add((int)tableState);
+        }
 
+        public int this[int index]
+        {
+            get
+            {
+                return NoteBook[index];
+            }
         }
     }
 }

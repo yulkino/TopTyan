@@ -8,7 +8,7 @@ namespace Restaurant
 {
     public class InformationAboutTables
     {
-        static public int[] Tables = new int[6];
+        static public List<Tuple<int, bool, int>> Tables = new List<Tuple<int, bool, int>>();
 
         public enum TableState
         {
@@ -25,9 +25,9 @@ namespace Restaurant
 
         public static void CreateTables()
         {
-            for (var i = 0; i < 9; i++)
+            for (var i = 0; i < 7; i++)
             {
-                Tables[i] = (int)TableState.EmptyTable;
+                Tables.Add(Tuple.Create(i, false, (int)TableState.EmptyTable));
             }
         }
 
@@ -35,7 +35,29 @@ namespace Restaurant
         {
             return !(tableState == TableState.EmptyTable);
         }
+
+        public static int TakeTableAndOrderDish(int numberOfTable)
+        {
+            if (IsTableBusy(numberOfTable))
+            {
+                var rndDish = new Random();
+                Tables[numberOfTable] = Tuple.Create(numberOfTable, true, rndDish.Next(0, 8));
+                return Tables[numberOfTable].Item3;
+            }
+            return default;
+        }
+
+        public static bool IsTableBusy(int numberOfTable)
+        {
+            return (Tables[numberOfTable].Item2 == false);
+        }
+
+        public Tuple<int, bool, int> this[int index]
+        {
+            get
+            {
+                return Tables[index];
+            }
+        }
     }
-
-
 }

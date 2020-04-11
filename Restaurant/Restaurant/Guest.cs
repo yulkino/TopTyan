@@ -8,12 +8,13 @@ namespace Restaurant
 {
     class Guest
     {
-        public static void TryToOrderDish()
+        public void TryToOrderDish()
         {
+
             int dish;
             for(var i = 0; i < 7; i++)
             {
-                dish = InformationAboutTables.TakeTableAndOrderDish(i);
+                dish = Table.TakeTableAndOrderDish(i);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Restaurant
     {
         public void Main()
         {
-            InformationAboutTables.CreateTables();
+            TablesInf.CreateTables();
         }
     }
 }

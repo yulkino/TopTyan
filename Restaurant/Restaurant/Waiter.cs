@@ -10,7 +10,7 @@ namespace Restaurant
     {
         private static List<int> NoteBook = new List<int>();
 
-        public Waiter(InformationAboutTables.TableState tableState) 
+        public Waiter(Table.TableState tableState) 
         {
             if(NoteBook.Count < 5)
                 NoteBook.Add((int)tableState);

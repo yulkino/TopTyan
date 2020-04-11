@@ -18,12 +18,5 @@ namespace Restaurant
                 Tables[i] = Tuple.Create(false, (int)TableState.EmptyTable);
             }
         }
-        //public Tuple<bool, int> this[int index]
-        //{
-        //    get
-        //    {
-        //        return TablesInf.Tables[index];
-        //    }
-        //}
     }
 }

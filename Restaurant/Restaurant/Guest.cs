@@ -8,12 +8,29 @@ namespace Restaurant
 {
     class Guest
     {
-        public static void TryToOrderDish()
+        public int Order;
+        public int NumberOfTable;
+
+        public bool TryTakeTable()
         {
-            int dish;
-            for(var i = 0; i < 7; i++)
+            for (var i = 0; i < TablesInf.Tables.Length; i++)
             {
-                dish = Table.TakeTableAndOrderDish(i);
+                if (TablesInf.Tables[i].Item1 == false)
+                {
+                    NumberOfTable = i;
+                    TablesInf.Tables[i] = Tuple.Create(true, TablesInf.Tables[i].Item2);
+                    return true;
+                }                
+            }
+            return false;
+        }
+
+        public void OrderDish()
+        {
+            if (Table.IsTableBusy(NumberOfTable))
+            {
+                var rndDish = new Random();
+                TablesInf.Tables[NumberOfTable] = Tuple.Create(true, rndDish.Next(1, 7));
             }
         }
     }

@@ -8,6 +8,6 @@ namespace Restaurant
 {
     class Guests
     {
-        public static 
+        public static List<Guest> GuestsList = new List<Guest>();
     }
 }

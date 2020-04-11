@@ -25,12 +25,7 @@ namespace Restaurant
 
         public static int TakeTableAndOrderDish(int numberOfTable)
         {
-            if (!IsTableBusy(numberOfTable))
-            {
-                var rndDish = new Random();
-                TablesInf.Tables[numberOfTable] = Tuple.Create(numberOfTable, true, rndDish.Next(0, 8));
-                return TablesInf.Tables[numberOfTable].Item3;
-            }
+
             return default;
         }
 

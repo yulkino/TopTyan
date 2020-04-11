@@ -8,12 +8,22 @@ namespace Restaurant
 {
     public class Table
     {
-        public static bool IsTableServed(TableState tableState)
+        public static bool IsTableServed(int numberOfTable)
         {
-            return tableState != TableState.EmptyTable;
+            return TablesInf.Tables[numberOfTable].Item2 != (int)TableState.EmptyTable;
         }
 
-        public int TakeTableAndOrderDish(int numberOfTable)
+        public static void TakeTable(int numberOfTable)
+        {
+            TablesInf.Tables[numberOfTable] = Tuple.Create(true, TablesInf.Tables[numberOfTable].Item2);
+        }
+
+        public static int OrderDish(int numberOfTable)
+        {
+
+        }
+
+        public static int TakeTableAndOrderDish(int numberOfTable)
         {
             if (!IsTableBusy(numberOfTable))
             {
@@ -24,17 +34,10 @@ namespace Restaurant
             return default;
         }
 
-        public bool IsTableBusy(int numberOfTable)
+        public static bool IsTableBusy(int numberOfTable)
         {
-            return TablesInf.Tables[numberOfTable].Item2;
+            return TablesInf.Tables[numberOfTable].Item1;
         }
 
-        public Tuple<int, bool, int> this[int index]
-        {
-            get
-            {
-                return TablesInf.Tables[index];
-            }
-        }
     }
 }

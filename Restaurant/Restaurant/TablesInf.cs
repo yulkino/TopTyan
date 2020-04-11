@@ -8,15 +8,22 @@ namespace Restaurant
 {
     class TablesInf
     {
-        static public List<Tuple<int, bool, int>> Tables = new List<Tuple<int, bool, int>>();
-
+        static public Tuple<bool, int>[] Tables = new Tuple<bool, int>[6];
+        // Tuple<занят ли стол\ что на столе> 
 
         public static void CreateTables()
         {
-            for (var i = 0; i < 7; i++)
+            for(var i = 0; i < Tables.Length; i++)
             {
-                Tables.Add(Tuple.Create(i, false, (int)TableState.EmptyTable));
+                Tables[i] = Tuple.Create(false, (int)TableState.EmptyTable);
             }
         }
+        //public Tuple<bool, int> this[int index]
+        //{
+        //    get
+        //    {
+        //        return TablesInf.Tables[index];
+        //    }
+        //}
     }
 }

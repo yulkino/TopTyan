@@ -8,9 +8,8 @@ namespace Restaurant
 {
     class Guest
     {
-        public void TryToOrderDish()
+        public static void TryToOrderDish()
         {
-
             int dish;
             for(var i = 0; i < 7; i++)
             {

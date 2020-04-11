@@ -8,6 +8,7 @@ namespace Restaurant
 {
     public enum TableState
     {
+        EmptyTable,
         AsparagusSoup,
         FishSteak,
         Guacamole,
@@ -15,7 +16,6 @@ namespace Restaurant
         HotChili,
         Lobster,
         Meatballs,
-        Vareniki,
-        EmptyTable
+        Vareniki
     }
 }

@@ -8,18 +8,14 @@ namespace Restaurant
 {
     class Waiter
     {
-        private static int[] NoteBook = new int[4];
+        private static List<int> NoteBook = new List<int>();
 
-        public Waiter(TableState tableState) 
+        public void Dish(TableState tableState) 
         {
-            var i = 0;
-            while(i < 4)
-            if (NoteBook[i] == 0)
-                NoteBook[i] = (int)tableState;
-            else
-                i++;
+            if(NoteBook.Count <= 4)
+            {
+                NoteBook.Add((int)tableState);
+            }
         }
-
-
     }
 }

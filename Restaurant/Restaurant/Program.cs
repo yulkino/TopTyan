@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant
 {
-    public class RestaurantCreation 
+    public class Program 
     {
         public void Main()
         {

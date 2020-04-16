@@ -10,27 +10,27 @@ namespace Restaurant
     {
         public int Order;
         public int NumberOfTable;
+        public bool IsGuestServed;
 
         public bool TryTakeTable()
-        {
+        { 
             for (var i = 0; i < TablesInf.Tables.Length; i++)
-            {
-                if (TablesInf.Tables[i].Item1 == false)
+                if (!Table.IsTableBusy(NumberOfTable))
                 {
                     NumberOfTable = i;
-                    TablesInf.Tables[i] = Tuple.Create(true, TablesInf.Tables[i].Item2);
+                    TablesInf.Tables[NumberOfTable] = Tuple.Create(true, TablesInf.Tables[NumberOfTable].Item2);
                     return true;
-                }                
-            }
+                }
             return false;
         }
 
         public void OrderDish()
         {
-            if (Table.IsTableBusy(NumberOfTable))
+            if (TryTakeTable())
             {
                 var rndDish = new Random();
                 TablesInf.Tables[NumberOfTable] = Tuple.Create(true, rndDish.Next(1, 7));
+                IsGuestServed = true;
             }
         }
     }

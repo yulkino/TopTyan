@@ -26,7 +26,7 @@ namespace Restaurant
             BitmapImage poiu = new BitmapImage();
             poiu.BeginInit();
             //poiu.UriSource = new Uri("D:\\GitKraken\\TopTyan\\Restaurant\\Restaurant\\texture\\1.jpg");
-            poiu.UriSource = new Uri("https://c7.uihere.com/files/525/261/123/wood-flooring-texture-mapping-painting-wood-texture-thumb.jpg");
+            poiu.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/пол.png?raw=true");
             poiu.EndInit();
           
             for(var x = 0; x < floor.ColumnDefinitions.Count; x++)

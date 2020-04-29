@@ -48,7 +48,7 @@ namespace Restaurant
         {
             BitmapImage tab = new BitmapImage();
             tab.BeginInit();
-            tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/1%20из%206.png?raw=true");
+            tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/спаржевый%20суп.png?raw=true");
             tab.EndInit();
             for (var x = 1; x < floor.ColumnDefinitions.Count - 1; x++)
             {

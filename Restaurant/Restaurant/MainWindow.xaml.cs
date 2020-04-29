@@ -27,7 +27,7 @@ namespace Restaurant
             GetTableForFood();
             BitmapImage wait = new BitmapImage();
             wait.BeginInit();
-            wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/вниз.png?raw=true");
+            wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/влево.png?raw=true");
             wait.EndInit();
             Image waiter = new Image { Source = wait };
             floor.Children.Add(waiter);

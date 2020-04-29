@@ -27,10 +27,11 @@ namespace Restaurant
             GetTableForFood();
             BitmapImage wait = new BitmapImage();
             wait.BeginInit();
-            wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/вниз.png?raw=true");
+            wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/вправо.png?raw=true");
             wait.EndInit();
             Image waiter = new Image { Source = wait };
-            Grid.SetColumn(waiter, 3);
+            floor.Children.Add(waiter);
+            Grid.SetColumn(waiter, 1);
             Grid.SetRow(waiter, 3);
         }
 

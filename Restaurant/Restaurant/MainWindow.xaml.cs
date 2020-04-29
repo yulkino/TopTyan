@@ -23,21 +23,40 @@ namespace Restaurant
         public MainWindow()
         {
             InitializeComponent();
+            GetFloor();
+            GetTableForFood();
+        }
+
+        public void GetFloor()
+        {
             BitmapImage poiu = new BitmapImage();
             poiu.BeginInit();
-            //poiu.UriSource = new Uri("D:\\GitKraken\\TopTyan\\Restaurant\\Restaurant\\texture\\1.jpg");
             poiu.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/пол.png?raw=true");
             poiu.EndInit();
-          
-            for(var x = 0; x < floor.ColumnDefinitions.Count; x++)
-             for(var y = 1; y < floor.RowDefinitions.Count - 1 ; y++)
-             {
+
+            for (var y = 0; y < floor.ColumnDefinitions.Count; y++)
+                for (var x = 1; x < floor.RowDefinitions.Count - 1; x++)
+                {
                     Image textureFloor = new Image { Source = poiu };
                     floor.Children.Add(textureFloor);
-                    Grid.SetColumn(textureFloor, x);
-                    Grid.SetRow(textureFloor, y);
-             }
-            
+                    Grid.SetColumn(textureFloor, y);
+                    Grid.SetRow(textureFloor, x);
+                }
+        }
+
+        public void GetTableForFood()
+        {
+            BitmapImage tab = new BitmapImage();
+            tab.BeginInit();
+            tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/1%20из%206.png?raw=true");
+            tab.EndInit();
+            for (var x = 1; x < floor.ColumnDefinitions.Count - 1; x++)
+            {
+                Image textureTableWihthFood = new Image { Source = tab };
+                floor.Children.Add(textureTableWihthFood);
+                Grid.SetColumn(textureTableWihthFood, x);
+                Grid.SetRow(textureTableWihthFood, 1);
+            }
         }
     }
 }

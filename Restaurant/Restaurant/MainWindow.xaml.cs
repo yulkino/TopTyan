@@ -25,6 +25,13 @@ namespace Restaurant
             InitializeComponent();
             GetFloor();
             GetTableForFood();
+            BitmapImage wait = new BitmapImage();
+            wait.BeginInit();
+            wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/вниз.png?raw=true");
+            wait.EndInit();
+            Image waiter = new Image { Source = wait };
+            Grid.SetColumn(waiter, 3);
+            Grid.SetRow(waiter, 3);
         }
 
         public void GetFloor()
@@ -48,7 +55,7 @@ namespace Restaurant
         {
             BitmapImage tab = new BitmapImage();
             tab.BeginInit();
-            tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/стол%20с%20гуакамоле.png?raw=true");
+            tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/стол%20с%20едой/крем-суп.png?raw=true");
             tab.EndInit();
             for (var x = 1; x < floor.ColumnDefinitions.Count - 1; x++)
             {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Restaurant"
         mc:Ignorable="d"
-        Title="MainWindow" Height="760" Width="735" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="740" Width="715" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Name="floor" Cursor="Hand">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -29,5 +29,10 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/gjjjk.jpg?raw=true" TileMode="Tile"
+            Viewport="0,0 0.1,0.1">
+            </ImageBrush>
+        </Grid.Background>
     </Grid>
 </Window>

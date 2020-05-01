@@ -10,12 +10,12 @@ namespace Restaurant
     {
         EmptyTable,
         AsparagusSoup,
-        FishSteak,
+        Ratatouille,
         Guacamole,
-        HoneyRoll,
+        CreamSoup,
         HotChili,
         Lobster,
-        Meatballs,
-        Vareniki
+        HoneyNuggets,
+        IceCream
     }
 }

@@ -20,25 +20,25 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window
     {
-        public int[,] map;
-        public int[,] waiterPosition;
+        int[,] map;
+        public Point waiterPosition;
+        Image waiter;
 
         public MainWindow()
         {
             InitializeComponent();
-            map = new int[floor.ColumnDefinitions.Count - 1, floor.RowDefinitions.Count - 1];
-            waiterPosition = new int[floor.ColumnDefinitions.Count, floor.RowDefinitions.Count];
+            map = new int[floor.ColumnDefinitions.Count, floor.RowDefinitions.Count];
             GetFloor();
             GetTableForFood();
-            
+            waiterPosition = new Point();
+
             BitmapImage wait = new BitmapImage();
             wait.BeginInit();
             wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/вниз.png?raw=true");
             wait.EndInit();
-            Image waiter = new Image { Source = wait };
+            waiter = new Image { Source = wait };
             floor.Children.Add(waiter);
-            Grid.SetColumn(waiter, 1);
-            Grid.SetRow(waiter, 3);
+            MakeSteps(0, 1);
         }
 
         public void GetFloor()
@@ -54,15 +54,7 @@ namespace Restaurant
             floor.Children.Add(textureFloor);
             Grid.SetColumn(textureFloor, 0);
             Grid.SetRow(textureFloor, 0);
-            Grid.SetColumnSpan(textureFloor, map.GetLength(0));
-            
-            //for (var x = 0; x < map.GetLength(0); x++)
-            //    {
-            //        Image textureFloor = new Image { Source = poiu };
-            //        floor.Children.Add(textureFloor);
-            //        Grid.SetColumn(textureFloor, 0);
-            //        Grid.SetRow(textureFloor, 0);
-            //    }
+            Grid.SetColumnSpan(textureFloor, floor.ColumnDefinitions.Count);
         }
 
         public void GetTableForFood()
@@ -100,14 +92,20 @@ namespace Restaurant
             }
         }
 
-        public void MakeSteps(int x, int y)
+        public void MakeSteps(int dx, int dy)
         {
-
+            if(InMap(dx, dy))
+            {
+                waiterPosition.X += dx;
+                waiterPosition.Y += dy;
+                Grid.SetColumn(waiter, (int)waiterPosition.X);
+                Grid.SetRow(waiter, (int)waiterPosition.Y);
+            }
         }
 
-        public bool InMap(int x, int y)
+        public bool InMap(int dx, int dy)
         {
-            return (map.GetLength(0) <= x && map.GetLength(1) <= y);
+            return (map.GetLength(0) <= dx + waiterPosition.X && map.GetLength(1) <= dy + waiterPosition.Y);
         }
 
     }

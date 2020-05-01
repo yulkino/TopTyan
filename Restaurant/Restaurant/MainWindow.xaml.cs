@@ -20,14 +20,17 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window
     {
-        int[,] map;
+        public int[,] map;
+        public int[,] waiterPosition;
 
         public MainWindow()
         {
             InitializeComponent();
-            map = new int[floor.ColumnDefinitions.Count, floor.RowDefinitions.Count];
+            map = new int[floor.ColumnDefinitions.Count - 1, floor.RowDefinitions.Count - 1];
+            waiterPosition = new int[floor.ColumnDefinitions.Count, floor.RowDefinitions.Count];
             GetFloor();
             GetTableForFood();
+            
             BitmapImage wait = new BitmapImage();
             wait.BeginInit();
             wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/вниз.png?raw=true");
@@ -71,10 +74,41 @@ namespace Restaurant
             for (var x = 1; x < floor.ColumnDefinitions.Count - 1; x++)
             {
                 Image textureTableWihthFood = new Image { Source = tab };
+                textureTableWihthFood.Stretch = Stretch.Fill;
                 floor.Children.Add(textureTableWihthFood);
                 Grid.SetColumn(textureTableWihthFood, x);
                 Grid.SetRow(textureTableWihthFood, 1);
             }
         }
+
+        public void KeyDetected(object sender, KeyEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case Key.W:
+                    MakeSteps(0, 1);
+                    break;
+                case Key.A:
+                    MakeSteps(-1, 0);
+                    break;
+                case Key.S:
+                    MakeSteps(0, -1);
+                    break;
+                case Key.D:
+                    MakeSteps(1, 0);
+                    break;
+            }
+        }
+
+        public void MakeSteps(int x, int y)
+        {
+
+        }
+
+        public bool InMap(int x, int y)
+        {
+            return (map.GetLength(0) <= x && map.GetLength(1) <= y);
+        }
+
     }
 }

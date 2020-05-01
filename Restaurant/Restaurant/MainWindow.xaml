@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Restaurant"
         mc:Ignorable="d"
-        Title="MainWindow" Height="740" Width="715" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="740" Width="740" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        KeyDown="KeyDetected" >
     <Grid Name="floor" Cursor="Hand">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

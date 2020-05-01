@@ -38,7 +38,7 @@ namespace Restaurant
             wait.EndInit();
             waiter = new Image { Source = wait };
             floor.Children.Add(waiter);
-            MakeSteps(0, 1);
+            MakeSteps(3, 3);
         }
 
         public void GetFloor()
@@ -73,18 +73,34 @@ namespace Restaurant
             }
         }
 
+        public void SetTables()
+        {
+            BitmapImage table = new BitmapImage();
+            table.BeginInit();
+            table.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/стол%20с%20едой/лобстер.png?raw=true");
+            table.EndInit();
+            for (var x = 1; x < floor.ColumnDefinitions.Count - 1; x++)
+            {
+                Image textureTableWihthFood = new Image { Source = table };
+                textureTableWihthFood.Stretch = Stretch.Fill;
+                floor.Children.Add(textureTableWihthFood);
+                Grid.SetColumn(textureTableWihthFood, 1);
+                Grid.SetRow(textureTableWihthFood, 1);
+            }
+        }
+
         public void KeyDetected(object sender, KeyEventArgs e)
         {
             switch(e.Key)
             {
                 case Key.W:
-                    MakeSteps(0, 1);
+                    MakeSteps(0, -1);
                     break;
                 case Key.A:
                     MakeSteps(-1, 0);
                     break;
                 case Key.S:
-                    MakeSteps(0, -1);
+                    MakeSteps(0, 1);
                     break;
                 case Key.D:
                     MakeSteps(1, 0);
@@ -105,8 +121,8 @@ namespace Restaurant
 
         public bool InMap(int dx, int dy)
         {
-            return (map.GetLength(0) <= dx + waiterPosition.X && map.GetLength(1) <= dy + waiterPosition.Y);
+            return (0 <= dx + waiterPosition.X && 1 <= dy + waiterPosition.Y 
+                && dx + waiterPosition.X < floor.ColumnDefinitions.Count && floor.RowDefinitions.Count > dy + waiterPosition.Y);
         }
-
     }
 }

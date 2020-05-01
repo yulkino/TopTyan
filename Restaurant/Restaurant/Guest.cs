@@ -24,7 +24,7 @@ namespace Restaurant
             return false;
         }
 
-        public void OrderDish()
+        public void OrderFood()
         {
             if (TryTakeTable())
             {

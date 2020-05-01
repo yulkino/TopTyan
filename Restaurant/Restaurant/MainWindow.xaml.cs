@@ -20,9 +20,9 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Point waiterPosition;
-        Point[] defaultTablesPosition = new Point[6] { new Point(4,3), new Point(2, 4), new Point(6,4), new Point(1,6) , new Point(4, 6) , new Point(7,6) };
-        Image waiter;
+
+        public Point[] defaultTablesPosition = new Point[6] { new Point(4,3), new Point(2, 4), new Point(6,4), new Point(1,6) , new Point(4, 6) , new Point(7,6) };
+        PlayerMovement playerMove;
 
         public MainWindow()
         {
@@ -30,15 +30,13 @@ namespace Restaurant
             GetFloor();
             GetTableForFood();
             SetTables();
-            waiterPosition = new Point();
+            playerMove = new PlayerMovement(this);
             
-            BitmapImage wait = new BitmapImage();
-            wait.BeginInit();
-            wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/вниз.png?raw=true");
-            wait.EndInit();
-            waiter = new Image { Source = wait };
-            floor.Children.Add(waiter);
-            MakeSteps(0, 1);
+        }
+
+        public void PassAction()
+        {
+            //playerMove.KeyDetected();
         }
 
         public void GetFloor()
@@ -89,46 +87,6 @@ namespace Restaurant
             }
         }
 
-        public void KeyDetected(object sender, KeyEventArgs e)
-        {
-            switch(e.Key)
-            {
-                case Key.W: MakeSteps(0, -1);
-                    break;
-                case Key.A: MakeSteps(-1, 0);
-                    break;
-                case Key.S: MakeSteps(0, 1);
-                    break;
-                case Key.D: MakeSteps(1, 0);
-                    break;
-            }
-        }
 
-        public void MakeSteps(int dx, int dy)
-        {
-            if(InMap(dx, dy) && !IsSituationForWorkaround(dx, dy))
-            {
-                waiterPosition.X += dx;
-                waiterPosition.Y += dy;
-                Grid.SetColumn(waiter, (int)waiterPosition.X);
-                Grid.SetRow(waiter, (int)waiterPosition.Y);
-            }
-        }
-
-        public bool InMap(int dx, int dy)
-        {
-            return (0 <= dx + waiterPosition.X && 1 <= dy + waiterPosition.Y 
-                && dx + waiterPosition.X < floor.ColumnDefinitions.Count && floor.RowDefinitions.Count > dy + waiterPosition.Y);
-        }
-
-        public bool IsSituationForWorkaround(int dx, int dy)
-        {
-            //if (dx == 0 && dy == 1 && defaultTablesPosition.Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)))
-            //    return true;
-            //if (dx == 0 && dy == -1 && defaultTablesPosition.Contains(new Point(waiterPosition.X, waiterPosition.Y)))
-            //    return true;
-            return dx == 0 && dy == 1 && defaultTablesPosition.Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)) ?
-                true : dx == 0 && dy == -1 && defaultTablesPosition.Contains(new Point(waiterPosition.X, waiterPosition.Y));
-        }
     }
 }

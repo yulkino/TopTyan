@@ -27,10 +27,11 @@ namespace Restaurant
 
         public void OrderFood()
         {
-            if (TryTakeTable())
+            if (TablesInf.Tables[NumberOfTable].Item1)
             {
                 var rndDish = new Random();
-                TablesInf.Tables[NumberOfTable] = Tuple.Create(true, rndDish.Next(1, 7));
+                Order = rndDish.Next(1, 7);
+                TablesInf.Tables[NumberOfTable] = Tuple.Create(true, Order);
                 IsGuestServed = true;
             }
         }

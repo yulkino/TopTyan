@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Restaurant"
         mc:Ignorable="d"
         Title="MainWindow" Height="740" Width="740" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        KeyDown="KeyDetected" >
+        KeyDown="PassAtion" >
     <Grid Name="floor" Cursor="Hand">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

@@ -20,25 +20,25 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window
     {
-        int[,] map;
         public Point waiterPosition;
+        Point[] defaultTablesPosition = new Point[6] { new Point(4,3), new Point(2, 4), new Point(6,4), new Point(1,6) , new Point(4, 6) , new Point(7,6) };
         Image waiter;
 
         public MainWindow()
         {
             InitializeComponent();
-            map = new int[floor.ColumnDefinitions.Count, floor.RowDefinitions.Count];
             GetFloor();
             GetTableForFood();
+            SetTables();
             waiterPosition = new Point();
-
+            
             BitmapImage wait = new BitmapImage();
             wait.BeginInit();
             wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/вниз.png?raw=true");
             wait.EndInit();
             waiter = new Image { Source = wait };
             floor.Children.Add(waiter);
-            MakeSteps(3, 3);
+            MakeSteps(0, 1);
         }
 
         public void GetFloor()
@@ -61,7 +61,7 @@ namespace Restaurant
         {
             BitmapImage tab = new BitmapImage();
             tab.BeginInit();
-            tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/стол%20с%20едой/лобстер.png?raw=true");
+            tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/стол%20с%20едой/стол1.jpg?raw=true");
             tab.EndInit();
             for (var x = 1; x < floor.ColumnDefinitions.Count - 1; x++)
             {
@@ -77,15 +77,15 @@ namespace Restaurant
         {
             BitmapImage table = new BitmapImage();
             table.BeginInit();
-            table.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/стол%20с%20едой/лобстер.png?raw=true");
+            table.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Гости/дефолтный%20стол.png?raw=true");
             table.EndInit();
-            for (var x = 1; x < floor.ColumnDefinitions.Count - 1; x++)
+            foreach (var tablePos in defaultTablesPosition)
             {
                 Image textureTableWihthFood = new Image { Source = table };
                 textureTableWihthFood.Stretch = Stretch.Fill;
                 floor.Children.Add(textureTableWihthFood);
-                Grid.SetColumn(textureTableWihthFood, 1);
-                Grid.SetRow(textureTableWihthFood, 1);
+                Grid.SetColumn(textureTableWihthFood, (int)tablePos.X);
+                Grid.SetRow(textureTableWihthFood, (int)tablePos.Y);
             }
         }
 
@@ -93,17 +93,13 @@ namespace Restaurant
         {
             switch(e.Key)
             {
-                case Key.W:
-                    MakeSteps(0, -1);
+                case Key.W: MakeSteps(0, -1);
                     break;
-                case Key.A:
-                    MakeSteps(-1, 0);
+                case Key.A: MakeSteps(-1, 0);
                     break;
-                case Key.S:
-                    MakeSteps(0, 1);
+                case Key.S: MakeSteps(0, 1);
                     break;
-                case Key.D:
-                    MakeSteps(1, 0);
+                case Key.D: MakeSteps(1, 0);
                     break;
             }
         }

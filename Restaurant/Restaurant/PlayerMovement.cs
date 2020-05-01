@@ -19,6 +19,7 @@ namespace Restaurant
         public PlayerMovement(MainWindow window)
         {
             Window = window;
+            StartPlayerMovement();
         }
 
         public void StartPlayerMovement()

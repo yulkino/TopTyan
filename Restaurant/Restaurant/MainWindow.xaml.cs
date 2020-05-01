@@ -23,23 +23,25 @@ namespace Restaurant
 
         public Point[] defaultTablesPosition = new Point[6] { new Point(4,3), new Point(2, 4), new Point(6,4), new Point(1,6) , new Point(4, 6) , new Point(7,6) };
         PlayerMovement playerMove;
-
+        InfoPanel panel;
         public MainWindow()
         {
             InitializeComponent();
-            GetFloor();
+            GetContur();
             GetTableForFood();
             SetTables();
             playerMove = new PlayerMovement(this);
-            
+            panel = new InfoPanel();
+            Grid1.Children.Add(panel.Panel);
+            Grid.SetRow(panel.Panel, 1);
         }
 
-        public void PassAction()
+        public void PassAction(object sender, KeyEventArgs e)
         {
-            //playerMove.KeyDetected();
+            playerMove.KeyDetected(sender, e);
         }
 
-        public void GetFloor()
+        public void GetContur()
         {
 
             BitmapImage poiu = new BitmapImage();
@@ -50,9 +52,8 @@ namespace Restaurant
             Image textureFloor = new Image { Source = poiu };
             textureFloor.Stretch = Stretch.Fill;
             floor.Children.Add(textureFloor);
-            Grid.SetColumn(textureFloor, 0);
-            Grid.SetRow(textureFloor, 0);
             Grid.SetColumnSpan(textureFloor, floor.ColumnDefinitions.Count);
+            Grid.SetColumnSpan(textureFloor, floor.RowDefinitions.Count);
         }
 
         public void GetTableForFood()

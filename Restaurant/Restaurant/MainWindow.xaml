@@ -6,34 +6,40 @@
         xmlns:local="clr-namespace:Restaurant"
         mc:Ignorable="d"
         Title="MainWindow" Height="740" Width="740" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        KeyDown="PassAtion" >
-    <Grid Name="floor" Cursor="Hand">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.Background>
-            <ImageBrush ImageSource="https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/gjjjk.jpg?raw=true" TileMode="Tile"
+        KeyDown="PassAction">
+    <Grid Name="Grid1">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions >
+        <Grid Name="floor" Cursor="Hand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.Background>
+                <ImageBrush ImageSource="https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/gjjjk.jpg?raw=true" TileMode="Tile"
             Viewport="0,0 0.1,0.1">
-            </ImageBrush>
-        </Grid.Background>
+                </ImageBrush>
+            </Grid.Background>
+        </Grid>
     </Grid>
 </Window>

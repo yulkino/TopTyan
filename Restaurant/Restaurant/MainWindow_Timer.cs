@@ -26,6 +26,7 @@ namespace Restaurant
                     
                 }
             };
+            timer.Start();
         }
     }
 }

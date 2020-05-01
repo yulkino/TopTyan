@@ -106,7 +106,7 @@ namespace Restaurant
 
         public void MakeSteps(int dx, int dy)
         {
-            if(InMap(dx, dy))
+            if(InMap(dx, dy) && !IsSituationForWorkaround(dx, dy))
             {
                 waiterPosition.X += dx;
                 waiterPosition.Y += dy;
@@ -119,6 +119,16 @@ namespace Restaurant
         {
             return (0 <= dx + waiterPosition.X && 1 <= dy + waiterPosition.Y 
                 && dx + waiterPosition.X < floor.ColumnDefinitions.Count && floor.RowDefinitions.Count > dy + waiterPosition.Y);
+        }
+
+        public bool IsSituationForWorkaround(int dx, int dy)
+        {
+            //if (dx == 0 && dy == 1 && defaultTablesPosition.Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)))
+            //    return true;
+            //if (dx == 0 && dy == -1 && defaultTablesPosition.Contains(new Point(waiterPosition.X, waiterPosition.Y)))
+            //    return true;
+            return dx == 0 && dy == 1 && defaultTablesPosition.Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)) ?
+                true : dx == 0 && dy == -1 && defaultTablesPosition.Contains(new Point(waiterPosition.X, waiterPosition.Y));
         }
     }
 }

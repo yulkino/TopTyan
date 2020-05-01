@@ -13,7 +13,7 @@ namespace Restaurant
             return TablesInf.Tables[numberOfTable].Item2 != (int)TableState.EmptyTable;
         }
 
-        public static bool IsTableBusy(int numberOfTable)
+        public static bool IsTableOccupated(int numberOfTable)
         {
             return TablesInf.Tables[numberOfTable].Item1;
         }

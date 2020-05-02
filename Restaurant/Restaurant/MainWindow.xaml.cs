@@ -30,6 +30,7 @@ namespace Restaurant
             GetContur();
             GetTableForFood();
             SetTables();
+            TablesInf.CreateTables();
             playerMove = new PlayerMovement(this);
             panel = new InfoPanel();
             Grid1.Children.Add(panel.Panel);

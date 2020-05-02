@@ -36,7 +36,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/gjjjk.jpg?raw=true" TileMode="Tile"
+                <ImageBrush ImageSource="https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/floor.jpg?raw=true" TileMode="Tile"
             Viewport="0,0 0.1,0.1">
                 </ImageBrush>
             </Grid.Background>

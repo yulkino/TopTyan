@@ -28,7 +28,7 @@ namespace Restaurant
 
             BitmapImage wait = new BitmapImage();
             wait.BeginInit();
-            wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/вниз.png?raw=true");
+            wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/down.png?raw=true");
             wait.EndInit();
             waiter = new Image { Source = wait };
             Window.floor.Children.Add(waiter);

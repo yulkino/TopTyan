@@ -60,7 +60,7 @@ namespace Restaurant
         {
             BitmapImage tab = new BitmapImage();
             tab.BeginInit();
-            tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/стол%20с%20едой/стол1.jpg?raw=true");
+            tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/TableForFood.jpg?raw=true");
             tab.EndInit();
             for (var x = 1; x < floor.ColumnDefinitions.Count - 1; x++)
             {
@@ -76,7 +76,7 @@ namespace Restaurant
         {
             BitmapImage table = new BitmapImage();
             table.BeginInit();
-            table.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Гости/дефолтный%20стол.png?raw=true");
+            table.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/DefaultTable.png?raw=true");
             table.EndInit();
             foreach (var tablePos in defaultTablesPosition)
             {

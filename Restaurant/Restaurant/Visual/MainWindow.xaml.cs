@@ -20,7 +20,7 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Table[] Tables = new Table[6];
+        public static Table[] Tables = new Table[6];
         InfoPanel panel;
 
         public MainWindow()

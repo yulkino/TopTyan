@@ -8,18 +8,16 @@ namespace Restaurant
 {
     class Guest
     {
-        public int Order;
+        public TableState Order;
         public int NumberOfTable;
-        public bool IsGuestServed;
 
         public bool TryTakeTable()
         { 
-            for (var i = 0; i < TablesInf.Tables.Length; i++)
-                if (!TablesInf.IsTableOccupated(i))
+            for (var i = 0; i < MainWindow.Tables.Length; i++)
+                if (!MainWindow.Tables[i].IsOccupated)
                 {
                     NumberOfTable = i;
-                    TablesInf.Tables[NumberOfTable] = Tuple.Create(true, (int)TableState.EmptyTable);
-                    //item 2 = TablesInf.Tables[NumberOfTable].Item2
+                    MainWindow.Tables[NumberOfTable].IsOccupated = true;
                     return true;
                 }
             return false;
@@ -27,13 +25,8 @@ namespace Restaurant
 
         public void OrderFood()
         {
-            if (TablesInf.Tables[NumberOfTable].Item1)
-            {
-                var rndDish = new Random();
-                Order = rndDish.Next(1, 7);
-                TablesInf.Tables[NumberOfTable] = Tuple.Create(true, Order);
-                IsGuestServed = true;
-            }
+            var rndDish = new Random();
+            Order = (TableState)rndDish.Next(1, 7);
         }
     }
 }

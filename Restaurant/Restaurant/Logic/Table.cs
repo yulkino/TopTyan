@@ -10,7 +10,7 @@ namespace Restaurant
     public class Table
     {
         public Point Position = new Point();
-        public bool Occupated;
+        public bool IsOccupated;
         public bool Served;
         public TableState FoodOnTable;
 

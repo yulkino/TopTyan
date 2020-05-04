@@ -67,7 +67,6 @@
     <Compile Include="Visual\PlayerMovement.cs" />
     <Compile Include="Visual\MainWindow_Timer.cs" />
     <Compile Include="Logic\Guests.cs" />
-    <Compile Include="Logic\TablesInf.cs" />
     <Compile Include="Logic\TableState.cs" />
     <Compile Include="Logic\Guest.cs" />
     <Compile Include="Logic\Waiter.cs" />

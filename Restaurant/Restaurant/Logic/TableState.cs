@@ -9,7 +9,6 @@ namespace Restaurant
     public enum TableState
     {
         EmptyTable,
-        AsparagusSoup,
         Ratatouille,
         Guacamole,
         CreamSoup,

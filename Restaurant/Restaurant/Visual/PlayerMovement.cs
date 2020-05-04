@@ -10,17 +10,10 @@ using System.Windows.Media.Imaging;
 
 namespace Restaurant
 {
-    public partial class PlayerMovement : Window
+    public partial class MainWindow : Window
     {
         public Point waiterPosition;
         public Image waiter;
-        MainWindow Window;
-
-        public PlayerMovement(MainWindow window)
-        {
-            Window = window;
-            StartPlayerMovement();
-        }
 
         public void StartPlayerMovement()
         {
@@ -31,7 +24,7 @@ namespace Restaurant
             wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/down.png?raw=true");
             wait.EndInit();
             waiter = new Image { Source = wait };
-            Window.floor.Children.Add(waiter);
+            floor.Children.Add(waiter);
             MakeSteps(0, 1);
         }
 
@@ -68,13 +61,13 @@ namespace Restaurant
         public bool InMap(int dx, int dy)
         {
             return (0 <= dx + waiterPosition.X && 1 <= dy + waiterPosition.Y
-                && dx + waiterPosition.X < Window.floor.ColumnDefinitions.Count && Window.floor.RowDefinitions.Count > dy + waiterPosition.Y);
+                && dx + waiterPosition.X < floor.ColumnDefinitions.Count && floor.RowDefinitions.Count > dy + waiterPosition.Y);
         }
 
         public bool IsSituationForWorkaround(int dx, int dy)
         {
-            return dx == 0 && dy == 1 && Window.defaultTablesPosition.Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)) ?
-                true : dx == 0 && dy == -1 && Window.defaultTablesPosition.Contains(new Point(waiterPosition.X, waiterPosition.Y));
+            return dx == 0 && dy == 1 && defaultTablesPosition.Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)) ?
+                true : dx == 0 && dy == -1 && defaultTablesPosition.Contains(new Point(waiterPosition.X, waiterPosition.Y));
         }
 
     }

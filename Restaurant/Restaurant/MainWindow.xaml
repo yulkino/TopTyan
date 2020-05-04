@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Restaurant"
         mc:Ignorable="d"
         Title="Restaurant" Height="740" Width="740" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        KeyDown="PassAction">
+        KeyDown="KeyDetected">
     <Grid Name="Grid1">
         <Grid.RowDefinitions >
             <RowDefinition Height="8*"/>

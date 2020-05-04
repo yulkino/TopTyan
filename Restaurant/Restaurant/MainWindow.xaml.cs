@@ -22,7 +22,6 @@ namespace Restaurant
     {
         public Point[] TableForFood = new Point[7] { new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(4, 1), new Point(5, 1), new Point(6, 1), new Point(7, 1), };
         public Point[] defaultTablesPosition = new Point[6] { new Point(4,3), new Point(2, 4), new Point(6,4), new Point(1,6) , new Point(4, 6) , new Point(7,6) };
-        PlayerMovement playerMove;
         InfoPanel panel;
         public MainWindow()
         {
@@ -31,13 +30,13 @@ namespace Restaurant
             GetTableForFood();
             SetTables();
             TablesInf.CreateTables();
-            playerMove = new PlayerMovement(this);
             panel = new InfoPanel();
+            StartPlayerMovement();
             Grid1.Children.Add(panel.Panel);
             Grid.SetRow(panel.Panel, 1);
         }
 
-        public void PassAction(object sender, KeyEventArgs e) => playerMove.KeyDetected(sender, e);
+        //public void PassAction(object sender, KeyEventArgs e) => playerMove.KeyDetected(sender, e);
 
         public void GetContur()
         {

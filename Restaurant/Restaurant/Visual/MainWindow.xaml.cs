@@ -30,6 +30,7 @@ namespace Restaurant
             panel = new InfoPanel();
             CreateTable();
             StartPlayerMovement();
+            StartTimer();
             Grid1.Children.Add(panel.Panel);
             Grid.SetRow(panel.Panel, 1);
 

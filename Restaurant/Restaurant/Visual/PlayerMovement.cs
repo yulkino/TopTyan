@@ -23,7 +23,8 @@ namespace Restaurant
             wait.BeginInit();
             wait.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Waiter/down.png?raw=true");
             wait.EndInit();
-            waiter = new Image { Source = wait };
+            waiter = new Image { Source = wait};
+            Grid.SetZIndex(waiter, 1);
             floor.Children.Add(waiter);
             MakeSteps(0, 1);
         }

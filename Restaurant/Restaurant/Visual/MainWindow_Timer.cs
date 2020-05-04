@@ -23,7 +23,7 @@ namespace Restaurant
         public void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(5);
+            timer.Interval = TimeSpan.FromSeconds(3);
             timer.Tick += (sender, args) => 
             {
                 var g = new Guest();
@@ -31,7 +31,7 @@ namespace Restaurant
                 {
                     Guests.GuestsList.Add(g);
                     var rnd = new Random();
-                    
+                    Draw(guestImages[rnd.Next(0, 5)], Tables[g.NumberOfTable].Position);
                 }
             };
             timer.Start();

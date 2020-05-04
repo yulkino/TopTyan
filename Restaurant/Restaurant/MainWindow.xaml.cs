@@ -37,10 +37,7 @@ namespace Restaurant
             Grid.SetRow(panel.Panel, 1);
         }
 
-        public void PassAction(object sender, KeyEventArgs e)
-        {
-            playerMove.KeyDetected(sender, e);
-        }
+        public void PassAction(object sender, KeyEventArgs e) => playerMove.KeyDetected(sender, e);
 
         public void GetContur()
         {

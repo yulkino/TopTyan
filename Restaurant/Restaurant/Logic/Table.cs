@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Restaurant
 {
     public class Table
     {
-        public static bool IsTableServed(int numberOfTable)
-        {
-            return TablesInf.Tables[numberOfTable].Item2 != (int)TableState.EmptyTable;
-        }
+        public Point Position = new Point();
+        public bool Occupated;
+        public bool Served;
+        public TableState FoodOnTable;
 
-        public static bool IsTableOccupated(int numberOfTable)
+        public Table(Point position, TableState foodOnTable)
         {
-            return TablesInf.Tables[numberOfTable].Item1;
+            Position = position;
+            FoodOnTable = foodOnTable;
         }
-
     }
 }

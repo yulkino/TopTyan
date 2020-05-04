@@ -18,5 +18,15 @@ namespace Restaurant
                 Tables[i] = Tuple.Create(false, (int)TableState.EmptyTable);
             }
         }
+
+        public static bool IsTableServed(int numberOfTable)
+        {
+            return TablesInf.Tables[numberOfTable].Item2 != (int)TableState.EmptyTable;
+        }
+
+        public static bool IsTableOccupated(int numberOfTable)
+        {
+            return TablesInf.Tables[numberOfTable].Item1;
+        }
     }
 }

@@ -66,8 +66,8 @@ namespace Restaurant
 
         public bool IsSituationForWorkaround(int dx, int dy)
         {
-            return dx == 0 && dy == 1 && defaultTablesPosition.Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)) ?
-                true : dx == 0 && dy == -1 && defaultTablesPosition.Contains(new Point(waiterPosition.X, waiterPosition.Y));
+            return dx == 0 && dy == 1 && Tables.Select(p => p.Position).Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)) ?
+                true : dx == 0 && dy == -1 && Tables.Select(p => p.Position).Contains(new Point(waiterPosition.X, waiterPosition.Y));
         }
 
     }

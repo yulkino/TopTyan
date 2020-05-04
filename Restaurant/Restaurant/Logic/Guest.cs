@@ -15,7 +15,7 @@ namespace Restaurant
         public bool TryTakeTable()
         { 
             for (var i = 0; i < TablesInf.Tables.Length; i++)
-                if (!Table.IsTableOccupated(i))
+                if (!TablesInf.IsTableOccupated(i))
                 {
                     NumberOfTable = i;
                     TablesInf.Tables[NumberOfTable] = Tuple.Create(true, (int)TableState.EmptyTable);

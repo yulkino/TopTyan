@@ -23,7 +23,16 @@ namespace Restaurant
         public Point[] TableForFood = new Point[7] { new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(4, 1), new Point(5, 1), new Point(6, 1), new Point(7, 1), };
         public static Table[] Tables = new Table[6];
         InfoPanel panel;
-        List<Uri> guestI = new List<Uri> { new Uri("HotChili.png") }
+        List<Uri> guestI = new List<Uri>
+        {
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/TableForFood/Ratatouille.png?raw=true"),
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/TableForFood/Guacamole.png?raw=true"),
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/TableForFood/CreamSoup.png?raw=true"),
+            new Uri(""),
+            new Uri(""),
+            new Uri(""),
+            new Uri("")
+        };
 
         public MainWindow()
         {

@@ -33,17 +33,15 @@ namespace Restaurant
         {
             switch (e.Key)
             {
-                case Key.W:
-                    MakeSteps(0, -1);
+                case Key.W: MakeSteps(0, -1);
                     break;
-                case Key.A:
-                    MakeSteps(-1, 0);
+                case Key.A: MakeSteps(-1, 0);
                     break;
-                case Key.S:
-                    MakeSteps(0, 1);
+                case Key.S: MakeSteps(0, 1);
                     break;
-                case Key.D:
-                    MakeSteps(1, 0);
+                case Key.D: MakeSteps(1, 0);
+                    break;
+                case Key.E: AcceptOrder(waiterPosition);
                     break;
             }
         }
@@ -59,17 +57,24 @@ namespace Restaurant
             }
         }
 
-        public bool InMap(int dx, int dy)
+        public void AcceptOrder(Point waiterPosition)
         {
-            return (0 <= dx + waiterPosition.X && 1 <= dy + waiterPosition.Y
+            if (IsSituationForAccaptOrder(waiterPosition))
+            {
+                Tables.FirstOrDefault(p => p.Position == waiterPosition).Served = true;
+                Guests.GuestsList
+                    .FirstOrDefault(g => g.NumberOfTable == Array.IndexOf(Tables, Tables.FirstOrDefault(p => p.Position == waiterPosition)))
+                    .OrderFood();
+            }
+        }
+
+        public bool IsSituationForAccaptOrder(Point waiterPosition) => Tables.Select(p => p.Position).Contains(waiterPosition);
+
+        public bool InMap(int dx, int dy) => (0 <= dx + waiterPosition.X && 1 <= dy + waiterPosition.Y
                 && dx + waiterPosition.X < floor.ColumnDefinitions.Count && floor.RowDefinitions.Count > dy + waiterPosition.Y);
-        }
 
-        public bool IsSituationForWorkaround(int dx, int dy)
-        {
-            return dx == 0 && dy == 1 && Tables.Select(p => p.Position).Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)) ?
+        public bool IsSituationForWorkaround(int dx, int dy) => dx == 0 && dy == 1 &&
+            Tables.Select(p => p.Position).Contains(new Point(waiterPosition.X + dx, waiterPosition.Y + dy)) ?
                 true : dx == 0 && dy == -1 && Tables.Select(p => p.Position).Contains(new Point(waiterPosition.X, waiterPosition.Y));
-        }
-
     }
 }

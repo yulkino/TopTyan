@@ -102,5 +102,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="TableForFood\CreamSoup.png" />
+    <Resource Include="TableForFood\Guacamole.png" />
+    <Resource Include="TableForFood\HoneyNuggets.png" />
+    <Resource Include="TableForFood\HotCili.png" />
+    <Resource Include="TableForFood\IceCream.png" />
+    <Resource Include="TableForFood\Lobster.png" />
+    <Resource Include="TableForFood\Ratatouille.png" />
+    <Resource Include="TableForFood\TableForFood.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

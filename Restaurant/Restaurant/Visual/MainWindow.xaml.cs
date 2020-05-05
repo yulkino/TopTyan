@@ -20,8 +20,10 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Point[] TableForFood = new Point[7] { new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(4, 1), new Point(5, 1), new Point(6, 1), new Point(7, 1), };
         public static Table[] Tables = new Table[6];
         InfoPanel panel;
+        List<Uri> guestI = new List<Uri> { new Uri("HotChili.png") }
 
         public MainWindow()
         {
@@ -33,13 +35,10 @@ namespace Restaurant
             StartTimer();
             Grid1.Children.Add(panel.Panel);
             Grid.SetRow(panel.Panel, 1);
-
-
         }
 
         public void CreateTable()
         {
-            Point[] TableForFood = new Point[7] { new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(4, 1), new Point(5, 1), new Point(6, 1), new Point(7, 1), };
             Point[] defaultTablesPosition = new Point[6] { new Point(4, 3), new Point(2, 4), new Point(6, 4), new Point(1, 6), new Point(4, 6), new Point(7, 6) };
             Uri forFood = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/TableForFood.jpg?raw=true");
             Uri forGuest = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/DefaultTable.png?raw=true");
@@ -48,7 +47,7 @@ namespace Restaurant
                 Draw(forGuest, defaultTablesPosition[forg]);
                 Tables[forg] = new Table(defaultTablesPosition[forg], TableState.EmptyTable);
             }
-            foreach(var forf in TableForFood)
+            for(var forf = 1; forf <= 7; forf++)
             {
                 Draw(forFood, forf);
             }

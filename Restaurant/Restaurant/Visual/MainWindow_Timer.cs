@@ -34,6 +34,11 @@ namespace Restaurant
                     Draw(guestImages[rnd.Next(0, 5)], Tables[g.NumberOfTable].Position);
                 }
             };
+            timer.Interval = TimeSpan.FromMilliseconds(10);
+            timer.Tick += (sender, args) =>
+            {
+                
+            };
             timer.Start();
         }
 

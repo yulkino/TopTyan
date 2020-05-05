@@ -23,15 +23,15 @@ namespace Restaurant
         public Point[] TableForFood = new Point[7] { new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(4, 1), new Point(5, 1), new Point(6, 1), new Point(7, 1), };
         public static Table[] Tables = new Table[6];
         InfoPanel panel;
-        List<Uri> guestI = new List<Uri>
+        List<Uri> guestIm = new List<Uri>
         {
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/TableForFood/Ratatouille.png?raw=true"),
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/TableForFood/Guacamole.png?raw=true"),
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/TableForFood/CreamSoup.png?raw=true"),
-            new Uri(""),
-            new Uri(""),
-            new Uri(""),
-            new Uri("")
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/Ratatouille.png?raw=true"),
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/Guacamole.png?raw=true"),
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/CreamSoup.png?raw=true"),
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/HotChili.png?raw=true"),
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/Lobster.png?raw=true"),
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/HoneyNuggets.png?raw=true"),
+            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/IceCream.png?raw=true")
         };
 
         public MainWindow()
@@ -58,7 +58,7 @@ namespace Restaurant
             }
             for(var forf = 1; forf <= 7; forf++)
             {
-                Draw(forFood, forf);
+                Draw(guestIm[forf - 1], TableForFood[forf - 1]);
             }
         }
 

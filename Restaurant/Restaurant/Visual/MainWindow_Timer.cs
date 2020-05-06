@@ -13,17 +13,20 @@ namespace Restaurant
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
-        List<Uri> guestImages = new List<Uri> { new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/guest1.png?raw=true"),
-                                                new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/guest2.png?raw=true"),
-                                                new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/guest3.png?raw=true"),
-                                                new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/guest4.png?raw=true"),
-                                                new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/guest5.png?raw=true"),
-                                                new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/guest6.png?raw=true")};
+        string[] guestImages = new string[6]
+            {
+            "texture\\Guests\\guest1.png",
+            "texture\\Guests\\guest2.png",
+            "texture\\Guests\\guest3.png",
+            "texture\\Guests\\guest4.png",
+            "texture\\Guests\\guest5.png",
+            "texture\\Guests\\guest6.png"
+            };
 
         public void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(3);
+            timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += (sender, args) => 
             {
                 var g = new Guest();
@@ -31,14 +34,14 @@ namespace Restaurant
                 {
                     Guests.GuestsList.Add(g);
                     var rnd = new Random();
-                    Draw(guestImages[rnd.Next(0, 5)], Tables[g.NumberOfTable].Position);
+                    Draw(GetImage(guestImages[rnd.Next(0, 5)]), Tables[g.NumberOfTable].Position);
                 }
             };
-            timer.Interval = TimeSpan.FromMilliseconds(10);
-            timer.Tick += (sender, args) =>
-            {
+            //timer.Interval = TimeSpan.FromMilliseconds(10);
+            //timer.Tick += (sender, args) =>
+            //{
                 
-            };
+            //};
             timer.Start();
         }
 

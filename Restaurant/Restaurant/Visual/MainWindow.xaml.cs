@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,15 +24,15 @@ namespace Restaurant
         public Point[] TableForFood = new Point[7] { new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(4, 1), new Point(5, 1), new Point(6, 1), new Point(7, 1), };
         public static Table[] Tables = new Table[6];
         InfoPanel panel;
-        List<Uri> guestIm = new List<Uri>
+        string[] foodImages = new string[7]
         {
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/Ratatouille.png?raw=true"),
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/Guacamole.png?raw=true"),
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/CreamSoup.png?raw=true"),
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/HotChili.png?raw=true"),
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/Lobster.png?raw=true"),
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/HoneyNuggets.png?raw=true"),
-            new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/IceCream.png?raw=true")
+            "texture\\TableForFood\\Ratatouille.png",
+            "texture\\TableForFood\\Guacamole.png",
+            "texture\\TableForFood\\CreamSoup.png",
+            "texture\\TableForFood\\HotChili.png",
+            "texture\\TableForFood\\Lobster.png",
+            "texture\\TableForFood\\HoneyNuggets.png",
+            "texture\\TableForFood\\IceCream.png"
         };
 
         public MainWindow()
@@ -49,30 +50,24 @@ namespace Restaurant
         public void CreateTable()
         {
             Point[] defaultTablesPosition = new Point[6] { new Point(4, 3), new Point(2, 4), new Point(6, 4), new Point(1, 6), new Point(4, 6), new Point(7, 6) };
-            Uri forFood = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/TableForFood.jpg?raw=true");
-            Uri forGuest = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/DefaultTable.png?raw=true");
             for(var forg = 0; forg < defaultTablesPosition.Length; forg++)
             {
-                Draw(forGuest, defaultTablesPosition[forg]);
+                Draw(GetImage("texture\\Guests\\DefaultTable.png"), defaultTablesPosition[forg]);
                 Tables[forg] = new Table(defaultTablesPosition[forg], TableState.EmptyTable);
             }
-            for(var forf = 1; forf <= 7; forf++)
+            for (var forf = 0; forf <= 6; forf++)
             {
-                Draw(guestIm[forf - 1], TableForFood[forf - 1]);
+                Draw(GetImage("texture\\TableForFood\\TableForFood.png"), TableForFood[forf]);
+                Draw(GetImage(foodImages[forf]), TableForFood[forf]);
             }
         }
 
-        public void Draw(Uri image, Point position)
+        public void Draw(Image image, Point position)
         {
-            BitmapImage table = new BitmapImage();
-            table.BeginInit();
-            table.UriSource = image;
-            table.EndInit();
-            Image textureTableWihthFood = new Image { Source = table };
-            textureTableWihthFood.Stretch = Stretch.Fill;
-            floor.Children.Add(textureTableWihthFood);
-            Grid.SetColumn(textureTableWihthFood, (int)position.X);
-            Grid.SetRow(textureTableWihthFood, (int)position.Y);
+            image.Stretch = Stretch.Fill;
+            floor.Children.Add(image);
+            Grid.SetColumn(image, (int)position.X);
+            Grid.SetRow(image, (int)position.Y);
         }
 
         public void GetContur()
@@ -90,36 +85,14 @@ namespace Restaurant
             Grid.SetColumnSpan(textureFloor, floor.RowDefinitions.Count);
         }
 
-        //public void GetTableForFood()
-        //{
-        //    BitmapImage tab = new BitmapImage();
-        //    tab.BeginInit();
-        //    tab.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/TableForFood/TableForFood.jpg?raw=true");
-        //    tab.EndInit();
-        //    for (var x = 1; x < floor.ColumnDefinitions.Count - 1; x++)
-        //    {
-        //        Image textureTableWihthFood = new Image { Source = tab };
-        //        textureTableWihthFood.Stretch = Stretch.Fill;
-        //        floor.Children.Add(textureTableWihthFood);
-        //        Grid.SetColumn(textureTableWihthFood, x);
-        //        Grid.SetRow(textureTableWihthFood, 1);
-        //    }
-        //}
-
-        //public void SetTables()
-        //{
-        //    BitmapImage table = new BitmapImage();
-        //    table.BeginInit();
-        //    table.UriSource = new Uri("https://github.com/yulkino/TopTyan/blob/master/Restaurant/Restaurant/texture/Guests/DefaultTable.png?raw=true");
-        //    table.EndInit();
-        //    foreach (var tablePos in defaultTablesPosition)
-        //    {
-        //        Image textureTableWihthFood = new Image { Source = table };
-        //        textureTableWihthFood.Stretch = Stretch.Fill;
-        //        floor.Children.Add(textureTableWihthFood);
-        //        Grid.SetColumn(textureTableWihthFood, (int)tablePos.X);
-        //        Grid.SetRow(textureTableWihthFood, (int)tablePos.Y);
-        //    }
-        //}
+        public static Image GetImage(string path)
+        {
+            Stream imageStreamSource = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            BitmapDecoder decoder = BitmapDecoder.Create(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+            BitmapSource bitmapSource = decoder.Frames[0];
+            Image myImage = new Image();
+            myImage.Source = bitmapSource;
+            return myImage;
+        }
     }
 }

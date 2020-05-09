@@ -36,7 +36,7 @@ namespace Restaurant
                     break;
                 case Key.D: MakeSteps(1, 0);
                     break;
-                case Key.E: AcceptOrder(waiterPosition);
+                case Key.E: InteractionWithTablesept(waiterPosition);
                     break;
             }
         }
@@ -50,6 +50,20 @@ namespace Restaurant
                 Grid.SetColumn(waiter, (int)waiterPosition.X);
                 Grid.SetRow(waiter, (int)waiterPosition.Y);
             }
+        }
+
+        public void InteractionWithTablesept(Point waiterPosition)
+        {
+            if (Tables.Any(p => p.Position == waiterPosition))
+                AcceptOrder(waiterPosition);
+            else if (TableForFood.Any(p => p == waiterPosition))
+                TakeDish(waiterPosition);
+        }
+
+        public void TakeDish(Point waiterPosition)
+        {
+            var e = (TableState)(Array.IndexOf(TableForFood, waiterPosition) + 1);
+            Waiter.DishInHand = (TableState)(Array.IndexOf(TableForFood, waiterPosition) + 1);
         }
 
         public void AcceptOrder(Point waiterPosition)

@@ -21,9 +21,17 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Point[] TableForFood = new Point[7] { new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(4, 1), new Point(5, 1), new Point(6, 1), new Point(7, 1), };
+        public Point[] TableForFood = new Point[7] 
+        {
+            new Point(1, 1),
+            new Point(2, 1),
+            new Point(3, 1),
+            new Point(4, 1),
+            new Point(5, 1),
+            new Point(6, 1),
+            new Point(7, 1),
+        };
         public static Table[] Tables = new Table[6];
-        InfoPanel panel;
         string[] foodImages = new string[7]
         {
             "texture\\TableForFood\\Ratatouille.png",
@@ -34,6 +42,7 @@ namespace Restaurant
             "texture\\TableForFood\\HoneyNuggets.png",
             "texture\\TableForFood\\IceCream.png"
         };
+        InfoPanel panel;
 
         public MainWindow()
         {

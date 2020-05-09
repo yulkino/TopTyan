@@ -9,15 +9,7 @@ namespace Restaurant
 {
     class Waiter
     {
-        private static List<int> NoteBook = new List<int>();
-
-        public void Dish(TableState tableState) 
-        {
-            if(NoteBook.Count <= 4)
-            {
-                NoteBook.Add((int)tableState);
-            }
-        }
-
+        public static TableState DishInHand = new TableState();
+        public int p = 1;
     }
 }

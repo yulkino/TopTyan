@@ -14,6 +14,31 @@ namespace Restaurant
     {
         public Point waiterPosition;
         public Image waiter;
+        public string[] Dish = new string[7]
+        {
+            "texture\\DishInHand\\Ratatouille.png",
+            "texture\\DishInHand\\Guacamole.png",
+            "texture\\DishInHand\\CreamSoup.png",
+            "texture\\DishInHand\\HotChili.png",
+            "texture\\DishInHand\\Lobster.png",
+            "texture\\DishInHand\\HoneyNuggets.png",
+            "texture\\DishInHand\\IceCream.png"
+        };
+
+        public Image FoodInHandImage
+        {
+            get => foodInHandImage;
+            set
+            {
+                if(foodInHandImage != null)
+                    panelDown.Panel.Children.Remove(foodInHandImage);
+                foodInHandImage = value;
+                panelDown.Panel.Children.Add(foodInHandImage);
+                Grid.SetColumn(foodInHandImage, 2);
+            }
+        }
+        Image foodInHandImage;
+
 
         public void StartPlayerMovement()
         {
@@ -21,7 +46,7 @@ namespace Restaurant
             waiter = GetImage("texture\\Waiter\\down.png");
             Grid.SetZIndex(waiter, 1);
             floor.Children.Add(waiter);
-            MakeSteps(0, 1);
+            MakeSteps(0, 0);
         }
 
         public void KeyDetected(object sender, KeyEventArgs e)
@@ -36,7 +61,7 @@ namespace Restaurant
                     break;
                 case Key.D: MakeSteps(1, 0);
                     break;
-                case Key.E: InteractionWithTablesept(waiterPosition);
+                case Key.E: InteractionWithTables(waiterPosition);
                     break;
             }
         }
@@ -52,21 +77,21 @@ namespace Restaurant
             }
         }
 
-        public void InteractionWithTablesept(Point waiterPosition)
+        public void InteractionWithTables(Point waiterPosition)
         {
             if (Tables.Any(p => p.Position == waiterPosition))
-                AcceptOrder(waiterPosition);
+                AcceptOrderOrServe(waiterPosition);
             else if (TableForFood.Any(p => p == waiterPosition))
                 TakeDish(waiterPosition);
         }
 
         public void TakeDish(Point waiterPosition)
         {
-            var e = (TableState)(Array.IndexOf(TableForFood, waiterPosition) + 1);
             Waiter.DishInHand = (TableState)(Array.IndexOf(TableForFood, waiterPosition) + 1);
+            FoodInHandImage = GetImage(Dish[(int)Waiter.DishInHand - 1]);
         }
 
-        public void AcceptOrder(Point waiterPosition)
+        public void AcceptOrderOrServe(Point waiterPosition)
         {
             if (IsSituationForAccaptOrder(waiterPosition))
             {
@@ -79,7 +104,7 @@ namespace Restaurant
 
         public bool IsSituationForAccaptOrder(Point waiterPosition) => Tables.Select(p => p.Position).Contains(waiterPosition);
 
-        public bool InMap(int dx, int dy) => (0 <= dx + waiterPosition.X && 1 <= dy + waiterPosition.Y
+        public bool InMap(int dx, int dy) => (0 <= dx + waiterPosition.X && 0 <= dy + waiterPosition.Y
                 && dx + waiterPosition.X < floor.ColumnDefinitions.Count && floor.RowDefinitions.Count > dy + waiterPosition.Y);
 
         public bool IsSituationForWorkaround(int dx, int dy) => dx == 0 && dy == 1 &&

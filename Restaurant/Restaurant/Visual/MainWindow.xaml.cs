@@ -23,13 +23,13 @@ namespace Restaurant
     {
         public Point[] TableForFood = new Point[7] 
         {
-            new Point(1, 1),
-            new Point(2, 1),
-            new Point(3, 1),
-            new Point(4, 1),
-            new Point(5, 1),
-            new Point(6, 1),
-            new Point(7, 1),
+            new Point(1, 0),
+            new Point(2, 0),
+            new Point(3, 0),
+            new Point(4, 0),
+            new Point(5, 0),
+            new Point(6, 0),
+            new Point(7, 0),
         };
         public static Table[] Tables = new Table[6];
         string[] foodImages = new string[7]
@@ -42,23 +42,47 @@ namespace Restaurant
             "texture\\TableForFood\\HoneyNuggets.png",
             "texture\\TableForFood\\IceCream.png"
         };
-        InfoPanel panel;
+        InfoPanel panelUp = new InfoPanel();
+        InfoPanel panelDown = new InfoPanel();
 
         public MainWindow()
         {
             InitializeComponent();
-            GetContur();
-            panel = new InfoPanel();
+            GetFloor();
+            GetInfoPanel();
             CreateTable();
             StartPlayerMovement();
+            GetContourInventory();
             StartTimer();
-            Grid1.Children.Add(panel.Panel);
-            Grid.SetRow(panel.Panel, 1);
+        }
+
+        public void GetContourInventory()
+        {
+            var contourImage = GetImage("texture\\DishInHand\\Contour.png");
+            contourImage.Stretch = Stretch.Fill;
+            panelDown.Panel.Children.Add(contourImage);
+            Grid.SetColumn(contourImage, 2);
+        }
+
+        public void GetInfoPanel()
+        {
+            Grid1.Children.Add(panelUp.Panel);
+            Grid.SetRow(panelUp.Panel, 0);
+            Grid1.Children.Add(panelDown.Panel);
+            Grid.SetRow(panelDown.Panel, 2);
         }
 
         public void CreateTable()
         {
-            Point[] defaultTablesPosition = new Point[6] { new Point(4, 3), new Point(2, 4), new Point(6, 4), new Point(1, 6), new Point(4, 6), new Point(7, 6) };
+            Point[] defaultTablesPosition = new Point[6] 
+            {
+                new Point(4, 3),
+                new Point(2, 2),
+                new Point(6, 2),
+                new Point(1, 4),
+                new Point(4, 5),
+                new Point(7, 4)
+            };
             for(var forg = 0; forg < defaultTablesPosition.Length; forg++)
             {
                 Draw(GetImage("texture\\Guests\\DefaultTable.png"), defaultTablesPosition[forg]);
@@ -79,21 +103,6 @@ namespace Restaurant
             Grid.SetRow(image, (int)position.Y);
         }
 
-        public void GetContur()
-        {
-
-            BitmapImage poiu = new BitmapImage();
-            poiu.BeginInit();
-            poiu.UriSource = new Uri("https://sochi.crystile.ru/upload/iblock/71e/71eec539e9a70145944887420fb3ac1f.jpg");
-            poiu.EndInit();
-
-            Image textureFloor = new Image { Source = poiu };
-            textureFloor.Stretch = Stretch.Fill;
-            floor.Children.Add(textureFloor);
-            Grid.SetColumnSpan(textureFloor, floor.ColumnDefinitions.Count);
-            Grid.SetColumnSpan(textureFloor, floor.RowDefinitions.Count);
-        }
-
         public static Image GetImage(string path)
         {
             Stream imageStreamSource = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -102,6 +111,14 @@ namespace Restaurant
             Image myImage = new Image();
             myImage.Source = bitmapSource;
             return myImage;
+        }
+
+        public void GetFloor()
+        {
+            ImageBrush brush = new ImageBrush(GetImage("texture\\floor.jpg").Source);
+            floor.Background = brush;
+            brush.TileMode = TileMode.Tile;
+            brush.Viewport = new Rect(0, 0, 0.1, 0.1);
         }
     }
 }

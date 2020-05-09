@@ -97,10 +97,13 @@ namespace Restaurant
 
         public void Draw(Image image, Point position)
         {
-            image.Stretch = Stretch.Fill;
-            floor.Children.Add(image);
-            Grid.SetColumn(image, (int)position.X);
-            Grid.SetRow(image, (int)position.Y);
+            if (image != null)
+            {
+                image.Stretch = Stretch.Fill;
+                floor.Children.Add(image);
+                Grid.SetColumn(image, (int)position.X);
+                Grid.SetRow(image, (int)position.Y);
+            }
         }
 
         public static Image GetImage(string path)

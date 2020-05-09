@@ -24,4 +24,37 @@ namespace Restaurant
             SetGrid();
         }
     }
+
+    partial class MainWindow : Window
+    {
+        public string[] Dish = new string[7]
+        {
+            "texture\\DishInHand\\Ratatouille.png",
+            "texture\\DishInHand\\Guacamole.png",
+            "texture\\DishInHand\\CreamSoup.png",
+            "texture\\DishInHand\\HotChili.png",
+            "texture\\DishInHand\\Lobster.png",
+            "texture\\DishInHand\\HoneyNuggets.png",
+            "texture\\DishInHand\\IceCream.png"
+        };
+
+        public Image FoodInHandImage
+        {
+            get => foodInHandImage;
+            set
+            {
+                if (foodInHandImage != null)
+                    panelDown.Panel.Children.Remove(foodInHandImage);
+                foodInHandImage = value;
+                panelDown.Panel.Children.Add(foodInHandImage);
+                Grid.SetColumn(foodInHandImage, 2);
+            }
+        }
+        Image foodInHandImage;
+
+        public void AddInInventory()
+        {
+            FoodInHandImage = GetImage(Dish[(int)Waiter.DishInHand - 1]);
+        }
+    }
 }

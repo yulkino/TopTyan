@@ -35,6 +35,7 @@ namespace Restaurant
                     Guests.GuestsList.Add(g);
                     var rnd = new Random();
                     Draw(GetImage(guestImages[rnd.Next(0, 5)]), Tables[g.NumberOfTable].Position);
+                    Tables[g.NumberOfTable].IsOccupated = true;
                 }
             };
             //timer.Interval = TimeSpan.FromMilliseconds(10);

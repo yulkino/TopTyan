@@ -10,6 +10,5 @@ namespace Restaurant
     class Waiter
     {
         public static TableState DishInHand = new TableState();
-        public int p = 1;
     }
 }

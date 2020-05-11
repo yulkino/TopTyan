@@ -63,6 +63,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Logic\Rating.cs" />
+    <Compile Include="Visual\Textures.cs" />
     <Compile Include="Visual\InfoPanel.cs" />
     <Compile Include="Visual\PlayerMovement.cs" />
     <Compile Include="Visual\MainWindow_Timer.cs" />

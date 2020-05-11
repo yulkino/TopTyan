@@ -32,18 +32,8 @@ namespace Restaurant
             new Point(7, 0),
         };
         public static Table[] Tables = new Table[6];
-        string[] foodImages = new string[7]
-        {
-            "texture\\TableForFood\\Ratatouille.png",
-            "texture\\TableForFood\\Guacamole.png",
-            "texture\\TableForFood\\CreamSoup.png",
-            "texture\\TableForFood\\HotChili.png",
-            "texture\\TableForFood\\Lobster.png",
-            "texture\\TableForFood\\HoneyNuggets.png",
-            "texture\\TableForFood\\IceCream.png"
-        };
-        InfoPanel panelUp = new InfoPanel();
-        InfoPanel panelDown = new InfoPanel();
+        public InfoPanel panelUp = new InfoPanel();
+        public InfoPanel panelDown = new InfoPanel();
 
         public MainWindow()
         {
@@ -91,7 +81,7 @@ namespace Restaurant
             for (var forf = 0; forf <= 6; forf++)
             {
                 Draw(GetImage("texture\\TableForFood\\TableForFood.png"), TableForFood[forf]);
-                Draw(GetImage(foodImages[forf]), TableForFood[forf]);
+                Draw(GetImage(Textures.foodImages[forf]), TableForFood[forf]);
             }
         }
 
@@ -122,6 +112,16 @@ namespace Restaurant
             floor.Background = brush;
             brush.TileMode = TileMode.Tile;
             brush.Viewport = new Rect(0, 0, 0.1, 0.1);
+        }
+
+        public void OutputStars()
+        {
+            //var clear = new Image();
+            //panelUp.Panel.Children.Add(clear);
+            //Grid.SetColumn(clear, 1);
+            var stars = GetImage(Textures.foodImages[Rating.Grade]);
+            panelUp.Panel.Children.Add(stars);
+            Grid.SetColumn(stars, 1);
         }
     }
 }

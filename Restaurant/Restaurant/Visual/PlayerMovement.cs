@@ -14,16 +14,6 @@ namespace Restaurant
     {
         public Point waiterPosition;
         public Image waiter;
-        public string[] FoodOnTable = new string[7]
-        {
-            "texture\\Dish\\Ratatouille.png",
-            "texture\\Dish\\Guacamole.png",
-            "texture\\Dish\\CreamSoup.png",
-            "texture\\Dish\\HotChili.png",
-            "texture\\Dish\\Lobster.png",
-            "texture\\Dish\\HoneyNuggets.png",
-            "texture\\Dish\\IceCream.png"
-        };
 
         public void StartPlayerMovement()
         {
@@ -86,7 +76,10 @@ namespace Restaurant
                 && Waiter.DishInHand != TableState.EmptyTable && !Tables[guestInf.NumberOfTable].Served)
             {
                 Tables[guestInf.NumberOfTable].Served = true;
-                Draw(GetImage(FoodOnTable[(int)Waiter.DishInHand - 1]), waiterPosition);
+                Tables[guestInf.NumberOfTable].FoodOnTable = Waiter.DishInHand;
+                Draw(GetImage(Textures.FoodOnTable[(int)Waiter.DishInHand - 1]), waiterPosition);
+                Rating.UpdateRating(Tables[guestInf.NumberOfTable], guestInf);
+                OutputStars();
                 FoodInHandImage = new Image();
                 Waiter.DishInHand = TableState.EmptyTable;
             }

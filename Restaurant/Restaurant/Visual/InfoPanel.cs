@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Restaurant
 {
-    class InfoPanel
+    public class InfoPanel
     {
         public Grid Panel;
         public void SetGrid()
@@ -22,22 +23,13 @@ namespace Restaurant
         public InfoPanel()
         {
             SetGrid();
+            //Panel.Background = new Bru;
         }
     }
 
     partial class MainWindow : Window
     {
-        public string[] Dish = new string[7]
-        {
-            "texture\\DishInHand\\Ratatouille.png",
-            "texture\\DishInHand\\Guacamole.png",
-            "texture\\DishInHand\\CreamSoup.png",
-            "texture\\DishInHand\\HotChili.png",
-            "texture\\DishInHand\\Lobster.png",
-            "texture\\DishInHand\\HoneyNuggets.png",
-            "texture\\DishInHand\\IceCream.png"
-        };
-
+        Image foodInHandImage;
         public Image FoodInHandImage
         {
             get => foodInHandImage;
@@ -50,13 +42,13 @@ namespace Restaurant
                 Grid.SetColumn(foodInHandImage, 2);
             }
         }
-        Image foodInHandImage;
 
         public void AddInInventory()
         {
-            FoodInHandImage = GetImage(Dish[(int)Waiter.DishInHand - 1]);
+            FoodInHandImage = GetImage(Textures.Dish[(int)Waiter.DishInHand - 1]);
         }
 
+        Image orderImage;
         public Image OrderImage
         {
             get => orderImage;
@@ -69,12 +61,39 @@ namespace Restaurant
                 Grid.SetColumn(orderImage, 0);
             }
         }
-        Image orderImage;
 
         public void OutputOrder(Image orderImage)
         {
             if (!panelDown.Panel.Children.Contains(orderImage))
                 OrderImage = orderImage;
+        }
+
+        Label name;
+        public Label DishName
+        {
+            get => name;
+            set
+            {
+                if (name != null)
+                    panelDown.Panel.Children.Remove(name);
+                name = value;
+                panelDown.Panel.Children.Add(name);
+                Grid.SetColumn(name, 1);
+            }
+        }
+
+        public void OutputLabel(string text)
+        {
+            DishName = new Label
+            {
+                Content = text,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                FontSize = 24,
+                FontWeight = FontWeights.UltraBold,
+                FontFamily = new FontFamily("Courier New"),
+                Foreground = new SolidColorBrush(Colors.IndianRed)
+            };
         }
     }
 }

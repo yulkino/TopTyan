@@ -56,5 +56,25 @@ namespace Restaurant
         {
             FoodInHandImage = GetImage(Dish[(int)Waiter.DishInHand - 1]);
         }
+
+        public Image OrderImage
+        {
+            get => orderImage;
+            set
+            {
+                if (orderImage != null)
+                    panelDown.Panel.Children.Remove(orderImage);
+                orderImage = value;
+                panelDown.Panel.Children.Add(orderImage);
+                Grid.SetColumn(orderImage, 0);
+            }
+        }
+        Image orderImage;
+
+        public void OutputOrder(Image orderImage)
+        {
+            if (!panelDown.Panel.Children.Contains(orderImage))
+                OrderImage = orderImage;
+        }
     }
 }

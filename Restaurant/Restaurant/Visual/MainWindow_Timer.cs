@@ -34,15 +34,17 @@ namespace Restaurant
                 {
                     Guests.GuestsList.Add(g);
                     var rnd = new Random();
-                    Draw(GetImage(guestImages[rnd.Next(0, 5)]), Tables[g.NumberOfTable].Position);
+                    var guest = GetImage(guestImages[rnd.Next(0, 5)]);
+                    guest.MouseMove += (sender1, args1) =>
+                    {
+                        if(g.Order != TableState.EmptyTable)
+                            OutputOrder(GetImage(Dish[(int)g.Order]));
+                    };
+                    guest.MouseLeave += (sender2, args2) => OrderImage = new Image();
+                    Draw(guest, Tables[g.NumberOfTable].Position);
                     Tables[g.NumberOfTable].IsOccupated = true;
                 }
-            };
-            //timer.Interval = TimeSpan.FromMilliseconds(10);
-            //timer.Tick += (sender, args) =>
-            //{
-                
-            //};
+            };   
             timer.Start();
         }
 

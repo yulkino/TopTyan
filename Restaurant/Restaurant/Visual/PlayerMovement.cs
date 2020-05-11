@@ -81,7 +81,9 @@ namespace Restaurant
             var guestInf = Guests.GuestsList.FirstOrDefault(g => g.NumberOfTable == Array.IndexOf(Tables, Tables.FirstOrDefault(p => p.Position == waiterPosition)));
             if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated && guestInf.Order == TableState.EmptyTable)
                 guestInf.OrderFood();
-            else if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated && guestInf.Order != TableState.EmptyTable && Waiter.DishInHand != TableState.EmptyTable  )
+            else 
+            if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated  && guestInf.Order != TableState.EmptyTable 
+                && Waiter.DishInHand != TableState.EmptyTable && !Tables[guestInf.NumberOfTable].Served)
             {
                 Tables[guestInf.NumberOfTable].Served = true;
                 Draw(GetImage(FoodOnTable[(int)Waiter.DishInHand - 1]), waiterPosition);

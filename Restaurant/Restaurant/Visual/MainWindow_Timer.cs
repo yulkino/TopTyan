@@ -27,7 +27,7 @@ namespace Restaurant
                     Guests.GuestsList.Add(g);
                     var rnd = new Random();
                     var guest = GetImage(Textures.guestImages[rnd.Next(0, 5)]);
-                    g.GuestTimer();
+                    g.GuestImage = guest;
                     guest.MouseMove += (sender1, args1) =>
                     {
                         if (g.Order != TableState.EmptyTable)
@@ -43,6 +43,7 @@ namespace Restaurant
                     };
                     Draw(guest, Tables[g.NumberOfTable].Position);
                     Tables[g.NumberOfTable].IsOccupated = true;
+                    g.GuestTimer();
                 }
             };
             timer.Start();

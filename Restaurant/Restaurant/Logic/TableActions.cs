@@ -34,11 +34,20 @@ namespace Restaurant
                 && Waiter.DishInHand != TableState.EmptyTable && !Tables[guestInf.NumberOfTable].Served)
             {
                 ServedTable(guestInf);
-                Draw(GetImage(Textures.FoodOnTable[(int)Waiter.DishInHand - 1]), waiterPosition);
+                var dishForGuest = GetImage(Textures.FoodOnTable[(int)Waiter.DishInHand - 1]);
+                Draw(dishForGuest, waiterPosition);
+                guestInf.DishImage = dishForGuest;
                 Rating.UpdateRating(Tables[guestInf.NumberOfTable], guestInf);
                 OutputStars();
                 ClearHand();
             }
+        }
+
+        public static void CleanTable(Table table)
+        {
+            table.FoodOnTable = TableState.EmptyTable;
+            table.IsOccupated = false;
+            table.Served = false;
         }
     }
 }

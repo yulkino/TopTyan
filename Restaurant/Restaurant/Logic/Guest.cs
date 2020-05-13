@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Restaurant
 {
     public class Guest
     {
+        public MainWindow window;
         public TableState Order;
         public int NumberOfTable;
         public bool AcceptOrder;
+        public Image GuestImage;
+        public Image DishImage;
         DispatcherTimer TimerForOrder = new DispatcherTimer();
 
         public void GuestTimer()
@@ -37,6 +41,8 @@ namespace Restaurant
             TimerForOrder.Stop();
             Guests.GuestsList.Remove(this);
             Rating.UpdateRating(MainWindow.Tables[NumberOfTable], this);
+            MainWindow.CleanTable(MainWindow.Tables[NumberOfTable]);
+            MainWindow.CleanTableImage(window, GuestImage, DishImage);
         }
 
         public bool TryTakeTable()

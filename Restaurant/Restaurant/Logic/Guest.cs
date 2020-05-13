@@ -12,27 +12,32 @@ namespace Restaurant
         public TableState Order;
         public int NumberOfTable;
         public bool AcceptOrder;
-        //DispatcherTimer TimerForOrder = new DispatcherTimer();
+        DispatcherTimer TimerForOrder = new DispatcherTimer();
 
-        //public void GuestTimer()
-        //{
-        //    var stages = 1;
-        //    TimerForOrder.Interval = TimeSpan.FromSeconds(10);
-        //    TimerForOrder.Tick += (sender, args) =>
-        //    {
-        //        if(stages == 1)
-        //        {
-        //            if(Table)
-        //            TimerForOrder = new DispatcherTimer();
-        //            stages++;
-        //        }
-        //        if (stages == 2)
-        //        {
-        //            TimerForOrder.Stop();
-        //        }
-        //    };
-        //    TimerForOrder.Start();
-        //}
+        public void GuestTimer()
+        {
+            TimerForOrder.Interval = TimeSpan.FromSeconds(10);
+            TimerForOrder.Tick += (sender, args) =>
+            {
+                if (AcceptOrder)
+                {
+                    TimerForOrder = new DispatcherTimer();
+                    TimerForOrder.Interval = TimeSpan.FromSeconds(10);
+                    TimerForOrder.Tick += (sender1, args1) => RemoveThisGuest();
+                    TimerForOrder.Start();
+                }
+                else
+                    RemoveThisGuest();
+            };
+            TimerForOrder.Start();
+        }
+
+        public void RemoveThisGuest()
+        {
+            TimerForOrder.Stop();
+            Guests.GuestsList.Remove(this);
+            Rating.UpdateRating(MainWindow.Tables[NumberOfTable], this);
+        }
 
         public bool TryTakeTable()
         { 

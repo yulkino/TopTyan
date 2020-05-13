@@ -60,26 +60,6 @@ namespace Restaurant
                 TakeDish(waiterPosition);
         }
 
-        public void AcceptOrderOrServe(Point waiterPosition)
-        {
-            var guestInf = Guests.GuestsList.FirstOrDefault(g => g.NumberOfTable == Array.IndexOf(Tables, Tables.FirstOrDefault(p => p.Position == waiterPosition)));
-            if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated && guestInf.Order == TableState.EmptyTable)
-            {
-                guestInf.OrderFood();
-                guestInf.AcceptOrder = true;
-            }
-            else
-            if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated && guestInf.Order != TableState.EmptyTable
-                && Waiter.DishInHand != TableState.EmptyTable && !Tables[guestInf.NumberOfTable].Served)
-            {
-                ServedTable(guestInf);
-                Draw(GetImage(Textures.FoodOnTable[(int)Waiter.DishInHand - 1]), waiterPosition);
-                Rating.UpdateRating(Tables[guestInf.NumberOfTable], guestInf);
-                OutputStars();
-                ClearHand();
-            }
-        }
-
         public bool InMap(int dx, int dy) => (0 <= dx + waiterPosition.X && 0 <= dy + waiterPosition.Y
                 && dx + waiterPosition.X < floor.ColumnDefinitions.Count && floor.RowDefinitions.Count > dy + waiterPosition.Y);
 

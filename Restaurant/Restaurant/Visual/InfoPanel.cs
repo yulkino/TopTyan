@@ -111,17 +111,5 @@ namespace Restaurant
             FoodInHandImage = new Image();
             Waiter.DishInHand = TableState.EmptyTable;
         }
-
-        public void TakeDish(Point waiterPosition)
-        {
-            Waiter.DishInHand = (TableState)(Array.IndexOf(TableForFood, waiterPosition) + 1);
-            AddInInventory();
-        }
-
-        public void ServedTable(Guest guestInf)
-        {
-            Tables[guestInf.NumberOfTable].Served = true;
-            Tables[guestInf.NumberOfTable].FoodOnTable = Waiter.DishInHand;
-        }
     }
 }

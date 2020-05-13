@@ -60,28 +60,23 @@ namespace Restaurant
                 TakeDish(waiterPosition);
         }
 
-        public void TakeDish(Point waiterPosition)
-        {
-            Waiter.DishInHand = (TableState)(Array.IndexOf(TableForFood, waiterPosition) + 1);
-            AddInInventory(); 
-        }
-
         public void AcceptOrderOrServe(Point waiterPosition)
         {
             var guestInf = Guests.GuestsList.FirstOrDefault(g => g.NumberOfTable == Array.IndexOf(Tables, Tables.FirstOrDefault(p => p.Position == waiterPosition)));
             if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated && guestInf.Order == TableState.EmptyTable)
+            {
                 guestInf.OrderFood();
-            else 
-            if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated  && guestInf.Order != TableState.EmptyTable 
+                guestInf.AcceptOrder = true;
+            }
+            else
+            if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated && guestInf.Order != TableState.EmptyTable
                 && Waiter.DishInHand != TableState.EmptyTable && !Tables[guestInf.NumberOfTable].Served)
             {
-                Tables[guestInf.NumberOfTable].Served = true;
-                Tables[guestInf.NumberOfTable].FoodOnTable = Waiter.DishInHand;
+                ServedTable(guestInf);
                 Draw(GetImage(Textures.FoodOnTable[(int)Waiter.DishInHand - 1]), waiterPosition);
                 Rating.UpdateRating(Tables[guestInf.NumberOfTable], guestInf);
                 OutputStars();
-                FoodInHandImage = new Image();
-                Waiter.DishInHand = TableState.EmptyTable;
+                ClearHand();
             }
         }
 

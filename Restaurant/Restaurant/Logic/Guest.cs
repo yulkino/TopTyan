@@ -3,13 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace Restaurant
 {
-    class Guest
+    public class Guest
     {
         public TableState Order;
         public int NumberOfTable;
+        public bool AcceptOrder;
+        //DispatcherTimer TimerForOrder = new DispatcherTimer();
+
+        //public void GuestTimer()
+        //{
+        //    var stages = 1;
+        //    TimerForOrder.Interval = TimeSpan.FromSeconds(10);
+        //    TimerForOrder.Tick += (sender, args) =>
+        //    {
+        //        if(stages == 1)
+        //        {
+        //            if(Table)
+        //            TimerForOrder = new DispatcherTimer();
+        //            stages++;
+        //        }
+        //        if (stages == 2)
+        //        {
+        //            TimerForOrder.Stop();
+        //        }
+        //    };
+        //    TimerForOrder.Start();
+        //}
 
         public bool TryTakeTable()
         { 

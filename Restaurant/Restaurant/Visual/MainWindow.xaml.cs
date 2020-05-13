@@ -113,15 +113,5 @@ namespace Restaurant
             brush.TileMode = TileMode.Tile;
             brush.Viewport = new Rect(0, 0, 0.1, 0.1);
         }
-
-        public void OutputStars()
-        {
-            //var clear = new Image();
-            //panelUp.Panel.Children.Add(clear);
-            //Grid.SetColumn(clear, 1);
-            var stars = GetImage(Textures.foodImages[Rating.Grade]);
-            panelUp.Panel.Children.Add(stars);
-            Grid.SetColumn(stars, 1);
-        }
     }
 }

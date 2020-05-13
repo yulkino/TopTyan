@@ -27,7 +27,7 @@ namespace Restaurant
         }
     }
 
-    partial class MainWindow : Window
+    partial class MainWindow : Window 
     {
         Image foodInHandImage;
         public Image FoodInHandImage
@@ -90,10 +90,38 @@ namespace Restaurant
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
                 FontSize = 24,
-                FontWeight = FontWeights.UltraBold,
+                FontWeight = FontWeights.SemiBold,
                 FontFamily = new FontFamily("Courier New"),
-                Foreground = new SolidColorBrush(Colors.IndianRed)
+                Foreground = new SolidColorBrush(Colors.DarkSlateGray)
             };
+        }
+
+        public void OutputStars()
+        {
+            var image = new Image();
+            panelUp.Panel.Children.Add(image);
+            Grid.SetColumn(image, 1);
+            var stars = GetImage(Textures.Stars[Rating.Grade]);
+            panelUp.Panel.Children.Add(stars);
+            Grid.SetColumn(stars, 1);
+        }
+
+        public void ClearHand()
+        {
+            FoodInHandImage = new Image();
+            Waiter.DishInHand = TableState.EmptyTable;
+        }
+
+        public void TakeDish(Point waiterPosition)
+        {
+            Waiter.DishInHand = (TableState)(Array.IndexOf(TableForFood, waiterPosition) + 1);
+            AddInInventory();
+        }
+
+        public void ServedTable(Guest guestInf)
+        {
+            Tables[guestInf.NumberOfTable].Served = true;
+            Tables[guestInf.NumberOfTable].FoodOnTable = Waiter.DishInHand;
         }
     }
 }

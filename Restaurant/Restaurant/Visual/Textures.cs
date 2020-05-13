@@ -57,6 +57,14 @@ namespace Restaurant
             "Honey Nuggets",
             "Ice Cream"
         };
-        public static string[] Stars = new string[7];
+        public static string[] Stars = new string[6]
+        {
+            "texture\\Stars\\0.png",
+            "texture\\Stars\\1.png",
+            "texture\\Stars\\2.png",
+            "texture\\Stars\\3.png",
+            "texture\\Stars\\4.png",
+            "texture\\Stars\\5.png"
+        };
     }
 }

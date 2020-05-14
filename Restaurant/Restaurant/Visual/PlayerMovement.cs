@@ -18,23 +18,31 @@ namespace Restaurant
         public void StartPlayerMovement()
         {
             waiterPosition = new Point();
-            waiter = GetImage("texture\\Waiter\\down.png");
-            Grid.SetZIndex(waiter, 1);
+            waiter = GetImage(Textures.PlayerMovement[3]);
+            Grid.SetZIndex(waiter, 3);
             floor.Children.Add(waiter);
-            MakeSteps(0, 0);
+            MakeSteps(4, 6);
         }
 
         public void KeyDetected(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
-                case Key.W: MakeSteps(0, -1);
+                case Key.W:
+                    //ReplaceImage(waiter, Textures.PlayerMovement[0]);
+                    MakeSteps(0, -1);
                     break;
-                case Key.A: MakeSteps(-1, 0);
+                case Key.A:
+                    //ReplaceImage(waiter, Textures.PlayerMovement[2]);
+                    MakeSteps(-1, 0);
+                        break;
+                case Key.S:
+                    //ReplaceImage(waiter, Textures.PlayerMovement[3]);
+                    MakeSteps(0, 1);
                     break;
-                case Key.S: MakeSteps(0, 1);
-                    break;
-                case Key.D: MakeSteps(1, 0);
+                case Key.D:
+                    //ReplaceImage(waiter, Textures.PlayerMovement[1]);
+                    MakeSteps(1, 0);
                     break;
                 case Key.E: InteractionWithTables(waiterPosition);
                     break;
@@ -45,10 +53,13 @@ namespace Restaurant
         {
             if (InMap(dx, dy) && !IsSituationForWorkaround(dx, dy))
             {
+                int index = dx == 1 ? 1 : dx == -1 ? 2 : dy == 1 ? 3 : 0;
+                ReplaceImage(waiter, Textures.PlayerMovement[index]);
                 waiterPosition.X += dx;
                 waiterPosition.Y += dy;
                 Grid.SetColumn(waiter, (int)waiterPosition.X);
                 Grid.SetRow(waiter, (int)waiterPosition.Y);
+                //Draw(waiter, waiterPosition);
             }
         }
 

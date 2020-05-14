@@ -18,15 +18,15 @@ namespace Restaurant
         public void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(4);
+            timer.Interval = TimeSpan.FromSeconds(3);
             timer.Tick += (sender, args) =>
             {
-                var g = new Guest();
+                var g = new Guest(this);
                 if (g.TryTakeTable())
                 {
                     Guests.GuestsList.Add(g);
                     var rnd = new Random();
-                    var guest = GetImage(Textures.guestImages[rnd.Next(0, 5)]);
+                    var guest = GetImage(Textures.GuestImages[rnd.Next(0, 5)]);
                     g.GuestImage = guest;
                     guest.MouseMove += (sender1, args1) =>
                     {

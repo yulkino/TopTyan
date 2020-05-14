@@ -10,12 +10,23 @@ namespace Restaurant
 {
     partial class MainWindow : Window
     {
-        public static void CleanTableImage(MainWindow window,Image tableImage, Image dishForGuest)
+
+        public void RemoveThisGuest(Guest guest)
         {
-            if(dishForGuest != null)
-                window.floor.Children.Remove(dishForGuest);
-            if (tableImage != null)
-                window.floor.Children.Remove(tableImage);
+            guest.TimerForOrder.Stop();
+            Guests.GuestsList.Remove(guest);
+            Rating.UpdateRating(Tables[guest.NumberOfTable], guest);
+            CleanTable(Tables[guest.NumberOfTable]);
+            CleanTableImage(guest);
+            OutputStars();
+        }  
+
+        public void CleanTableImage(Guest guest)
+        {
+            if(guest.DishImage != null)
+                floor.Children.Remove(guest.DishImage);
+            if (guest.GuestImage != null)
+                floor.Children.Remove(guest.GuestImage);
         }
     }
 }

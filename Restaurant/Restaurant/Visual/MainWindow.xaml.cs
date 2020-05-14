@@ -44,6 +44,7 @@ namespace Restaurant
             StartPlayerMovement();
             GetContourInventory();
             StartTimer();
+            OutputStars();
         }
 
         public void GetContourInventory()
@@ -81,7 +82,7 @@ namespace Restaurant
             for (var forf = 0; forf <= 6; forf++)
             {
                 Draw(GetImage("texture\\TableForFood\\TableForFood.png"), TableForFood[forf]);
-                Draw(GetImage(Textures.foodImages[forf]), TableForFood[forf]);
+                Draw(GetImage(Textures.FoodImages[forf]), TableForFood[forf]);
             }
         }
 
@@ -104,6 +105,14 @@ namespace Restaurant
             Image myImage = new Image();
             myImage.Source = bitmapSource;
             return myImage;
+        }
+
+        public static void ReplaceImage(Image image, string path)
+        {
+            Stream imageStreamSource = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            BitmapDecoder decoder = BitmapDecoder.Create(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+            BitmapSource bitmapSource = decoder.Frames[0];
+            image.Source = bitmapSource;
         }
 
         public void GetFloor()

@@ -29,7 +29,7 @@ namespace Restaurant
                 guestInf.OrderFood();
                 guestInf.AcceptOrder = true;
             }
-            else
+            else  
             if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated && guestInf.Order != TableState.EmptyTable
                 && Waiter.DishInHand != TableState.EmptyTable && !Tables[guestInf.NumberOfTable].Served)
             {

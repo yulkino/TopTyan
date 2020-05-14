@@ -16,37 +16,34 @@ namespace Restaurant
         public bool AcceptOrder;
         public Image GuestImage;
         public Image DishImage;
-        DispatcherTimer TimerForOrder = new DispatcherTimer();
+        public DispatcherTimer TimerForOrder = new DispatcherTimer();
+
+        public Guest(MainWindow mainWindow)
+        {
+            window = mainWindow;
+        }
 
         public void GuestTimer()
         {
-            TimerForOrder.Interval = TimeSpan.FromSeconds(10);
+            TimerForOrder.Interval = TimeSpan.FromSeconds(20);
             TimerForOrder.Tick += (sender, args) =>
             {
                 if (AcceptOrder)
                 {
+                    TimerForOrder.Stop();
                     TimerForOrder = new DispatcherTimer();
-                    TimerForOrder.Interval = TimeSpan.FromSeconds(10);
-                    TimerForOrder.Tick += (sender1, args1) => RemoveThisGuest();
+                    TimerForOrder.Interval = TimeSpan.FromSeconds(15);
+                    TimerForOrder.Tick += (sender1, args1) => window.RemoveThisGuest(this);
                     TimerForOrder.Start();
                 }
                 else
-                    RemoveThisGuest();
+                    window.RemoveThisGuest(this);
             };
             TimerForOrder.Start();
         }
 
-        public void RemoveThisGuest()
-        {
-            TimerForOrder.Stop();
-            Guests.GuestsList.Remove(this);
-            Rating.UpdateRating(MainWindow.Tables[NumberOfTable], this);
-            MainWindow.CleanTable(MainWindow.Tables[NumberOfTable]);
-            MainWindow.CleanTableImage(window, GuestImage, DishImage);
-        }
-
         public bool TryTakeTable()
-        { 
+        {
             for (var i = 0; i < MainWindow.Tables.Length; i++)
                 if (!MainWindow.Tables[i].IsOccupated)
                 {

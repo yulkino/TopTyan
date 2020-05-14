@@ -8,7 +8,14 @@ namespace Restaurant
 {
     static class Textures
     {
-        public static string[] foodImages = new string[7]
+        public static string[] PlayerMovement = new string[4]
+        {
+            "texture\\Waiter\\up.png",
+            "texture\\Waiter\\right.png",
+            "texture\\Waiter\\left.png",
+            "texture\\Waiter\\down.png"
+        };
+        public static string[] FoodImages = new string[7]
         {
             "texture\\TableForFood\\Ratatouille.png",
             "texture\\TableForFood\\Guacamole.png",
@@ -18,7 +25,7 @@ namespace Restaurant
             "texture\\TableForFood\\HoneyNuggets.png",
             "texture\\TableForFood\\IceCream.png"
         };
-        public static string[] guestImages = new string[6]
+        public static string[] GuestImages = new string[6]
             {
             "texture\\Guests\\guest1.png",
             "texture\\Guests\\guest2.png",

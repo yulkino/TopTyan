@@ -53,6 +53,9 @@ namespace Restaurant
             contourImage.Stretch = Stretch.Fill;
             panelDown.Panel.Children.Add(contourImage);
             Grid.SetColumn(contourImage, 2);
+            ImageBrush brush = new ImageBrush(GetImage("texture\\back.png").Source);
+            panelDown.Panel.Background = brush;
+            brush.TileMode = TileMode.Tile;
         }
 
         public void GetInfoPanel()

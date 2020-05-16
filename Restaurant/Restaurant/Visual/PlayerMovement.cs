@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace Restaurant
@@ -14,6 +16,7 @@ namespace Restaurant
     {
         public Point waiterPosition;
         public Image waiter;
+        private bool MovingLocked;
 
         public void StartPlayerMovement()
         {
@@ -21,30 +24,28 @@ namespace Restaurant
             waiter = GetImage(Textures.PlayerMovement[3]);
             Grid.SetZIndex(waiter, 3);
             floor.Children.Add(waiter);
-            MakeSteps(4, 6);
+            //MakeSteps(0, 0);
         }
 
         public void KeyDetected(object sender, KeyEventArgs e)
         {
+            if (MovingLocked) return;
             switch (e.Key)
             {
                 case Key.W:
-                    //ReplaceImage(waiter, Textures.PlayerMovement[0]);
-                    MakeSteps(0, -1);
+                    MakeStepsWithAnimation(waiter, 0, -1);
                     break;
                 case Key.A:
-                    //ReplaceImage(waiter, Textures.PlayerMovement[2]);
-                    MakeSteps(-1, 0);
-                        break;
+                    MakeStepsWithAnimation(waiter, -1, 0);
+                    break;
                 case Key.S:
-                    //ReplaceImage(waiter, Textures.PlayerMovement[3]);
-                    MakeSteps(0, 1);
+                    MakeStepsWithAnimation(waiter, 0, 1);
                     break;
                 case Key.D:
-                    //ReplaceImage(waiter, Textures.PlayerMovement[1]);
-                    MakeSteps(1, 0);
+                    MakeStepsWithAnimation(waiter, 1, 0);
                     break;
-                case Key.E: InteractionWithTables(waiterPosition);
+                case Key.E:
+                    InteractionWithTables(waiterPosition);
                     break;
             }
         }
@@ -53,14 +54,39 @@ namespace Restaurant
         {
             if (InMap(dx, dy) && !IsSituationForWorkaround(dx, dy))
             {
-                int index = dx == 1 ? 1 : dx == -1 ? 2 : dy == 1 ? 3 : 0;
-                ReplaceImage(waiter, Textures.PlayerMovement[index]);
                 waiterPosition.X += dx;
                 waiterPosition.Y += dy;
                 Grid.SetColumn(waiter, (int)waiterPosition.X);
                 Grid.SetRow(waiter, (int)waiterPosition.Y);
                 //Draw(waiter, waiterPosition);
             }
+        }
+
+        private void MakeStepsWithAnimation(UIElement element, int dx, int dy)
+        {
+            if (!InMap(dx, dy) || IsSituationForWorkaround(dx, dy)) return;
+            int index = dx == 1 ? 1 : dx == -1 ? 2 : dy == 1 ? 3 : 0;
+            ReplaceImage(waiter, Textures.PlayerMovement[index]);
+            MovingLocked = true;
+            ThicknessAnimation animation = new ThicknessAnimation()
+            {
+                From = new Thickness(0, 0, 0, 0),
+                To = new Thickness(82 * dx, 82 * dy, -82 * dx, -82 * dy),
+                AccelerationRatio = 0.2,
+                FillBehavior = FillBehavior.Stop,
+                DecelerationRatio = 0.8,
+                Duration = TimeSpan.FromMilliseconds(180)
+            };
+            animation.Completed += (sender, args) =>
+            {
+                MakeSteps(dx, dy);
+                MovingLocked = false;
+            };
+            Storyboard.SetTarget(animation, element);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(MarginProperty));
+            var sb = new Storyboard();
+            sb.Children.Add(animation);
+            sb.Begin();
         }
 
         public void InteractionWithTables(Point waiterPosition)

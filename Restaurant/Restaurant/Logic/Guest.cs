@@ -25,7 +25,7 @@ namespace Restaurant
 
         public void GuestTimer()
         {
-            TimerForOrder.Interval = TimeSpan.FromSeconds(20);
+            TimerForOrder.Interval = TimeSpan.FromSeconds(5);
             TimerForOrder.Tick += (sender, args) =>
             {
                 if (AcceptOrder)

@@ -14,6 +14,7 @@ namespace Restaurant
 
         public static  void UpdateRating(Table table, Guest guest)
         {
+            if (Grade < 0) return;
             var rnd = new Random();
             CountRating++;
             if (table.Served && table.FoodOnTable == guest.Order) SumRating += rnd.Next(4, 5);

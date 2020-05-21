@@ -18,16 +18,14 @@ namespace Restaurant
             Panel.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             Panel.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(7, GridUnitType.Star) });
             Panel.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            Panel.ShowGridLines = true;
         }
         public InfoPanel()
         {
             SetGrid();
-            //Panel.Background = new Bru;
         }
     }
 
-    partial class MainWindow : Window 
+    partial class MainWindow : Window
     {
         Image foodInHandImage;
         public Image FoodInHandImage
@@ -104,6 +102,26 @@ namespace Restaurant
             var stars = GetImage(Textures.Stars[Rating.Grade]);
             panelUp.Panel.Children.Add(stars);
             Grid.SetColumn(stars, 1);
+            OutputCounter();
+            if (Rating.Grade == 0) FinishGame();
+        }
+
+        Label Counter = new Label()
+        {
+            VerticalAlignment = VerticalAlignment.Center,
+            FontSize = 15,
+            FontFamily = new FontFamily("Courier New")
+        };
+
+        public void OutputCounter()
+        {
+            if (!panelUp.Panel.Children.Contains(Counter))
+            {
+                Counter.Content = "Total:" + Rating.CountRating.ToString();
+                panelUp.Panel.Children.Add(Counter);
+            }
+            Counter.Content = "Total:" + Rating.CountRating.ToString();
+            Grid.SetColumn(Counter, 2);
         }
 
         public void ClearHand()

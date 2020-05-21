@@ -13,12 +13,11 @@ namespace Restaurant
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
-        //DispatcherTimer timerforGuest;
 
         public void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(3);
+            timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += (sender, args) =>
             {
                 var g = new Guest(this);
@@ -34,12 +33,14 @@ namespace Restaurant
                         {
                             OutputOrder(GetImage(Textures.Dish[(int)g.Order - 1]));
                             OutputLabel(Textures.DishName[(int)g.Order - 1]);
+                            OutputCounter();
                         }
                     };
                     guest.MouseLeave += (sender2, args2) =>
                     {
                         OrderImage = new Image();
                         DishName = new Label();
+                        //Counter = new Label();
                     };
                     Draw(guest, Tables[g.NumberOfTable].Position);
                     Tables[g.NumberOfTable].IsOccupated = true;

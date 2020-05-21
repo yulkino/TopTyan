@@ -125,5 +125,11 @@ namespace Restaurant
             brush.TileMode = TileMode.Tile;
             brush.Viewport = new Rect(0, 0, 0.1, 0.1);
         }
+
+        public void FinishGame()
+        {
+            if(MessageBox.Show("you lose (вы делали это без души)") == MessageBoxResult.OK)
+                Environment.Exit(0);
+        }
     }
 }

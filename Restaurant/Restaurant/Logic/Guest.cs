@@ -34,22 +34,22 @@ namespace Restaurant
                     TimerForOrder.Stop();
                     TimerForOrder = new DispatcherTimer();
                     TimerForOrder.Interval = TimeSpan.FromSeconds(15);
-                    TimerForOrder.Tick += (sender1, args1) => window.RemoveThisGuest(this);
+                    TimerForOrder.Tick += (sender1, args1) => Environment.RemoveGuest(this);
                     TimerForOrder.Start();
                 }
                 else
-                    window.RemoveThisGuest(this);
+                    Environment.RemoveGuest(this);
             };
             TimerForOrder.Start();
         }
 
         public bool TryTakeTable()
         {
-            for (var i = 0; i < MainWindow.Tables.Length; i++)
-                if (!MainWindow.Tables[i].IsOccupated)
+            for (var i = 0; i < Environment.Tables.Length; i++)
+                if (!Environment.Tables[i].IsOccupated)
                 {
                     NumberOfTable = i;
-                    MainWindow.Tables[NumberOfTable].IsOccupated = true;
+                    Environment.Tables[NumberOfTable].IsOccupated = true;
                     return true;
                 }
             return false;

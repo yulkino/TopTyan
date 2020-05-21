@@ -19,5 +19,12 @@ namespace Restaurant
             Position = position;
             FoodOnTable = foodOnTable;
         }
+
+        public void Serve(TableState tableState)
+        {
+            Served = true;
+            FoodOnTable = tableState;
+            //Waiter.DishInHand;
+        }
     }
 }

@@ -11,15 +11,15 @@ namespace Restaurant
     partial class MainWindow : Window
     {
 
-        public void RemoveThisGuest(Guest guest)
-        {
-            guest.TimerForOrder.Stop();
-            Guests.GuestsList.Remove(guest);
-            Rating.UpdateRating(Tables[guest.NumberOfTable], guest);
-            CleanTable(Tables[guest.NumberOfTable]);
-            CleanTableImage(guest);
-            OutputStars();
-        }  
+        //public void RemoveThisGuest(Guest guest)
+        //{
+        //    guest.TimerForOrder.Stop();
+        //    Guests.GuestsList.Remove(guest);
+        //    Rating.UpdateRating(Tables[guest.NumberOfTable], guest);
+        //    CleanTable(Tables[guest.NumberOfTable]);
+        //    CleanTableImage(guest);
+        //    OutputStars();
+        //}  
 
         public void CleanTableImage(Guest guest)
         {

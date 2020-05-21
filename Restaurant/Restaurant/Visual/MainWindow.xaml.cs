@@ -21,17 +21,17 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Point[] TableForFood = new Point[7] 
-        {
-            new Point(1, 0),
-            new Point(2, 0),
-            new Point(3, 0),
-            new Point(4, 0),
-            new Point(5, 0),
-            new Point(6, 0),
-            new Point(7, 0),
-        };
-        public static Table[] Tables = new Table[6];
+        //public Point[] TableForFood = new Point[7] 
+        //{
+        //    new Point(1, 0),
+        //    new Point(2, 0),
+        //    new Point(3, 0),
+        //    new Point(4, 0),
+        //    new Point(5, 0),
+        //    new Point(6, 0),
+        //    new Point(7, 0),
+        //};
+        //public static Table[] Tables = new Table[6];
         public InfoPanel panelUp = new InfoPanel();
         public InfoPanel panelDown = new InfoPanel();
 
@@ -128,8 +128,8 @@ namespace Restaurant
 
         public void FinishGame()
         {
-            if(MessageBox.Show("you lose (вы делали это без души)") == MessageBoxResult.OK)
-                Environment.Exit(0);
+            //if(MessageBox.Show("you lose (вы делали это без души)") == MessageBoxResult.OK)
+            //    Environment.Exit(0);
         }
     }
 }

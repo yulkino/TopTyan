@@ -10,8 +10,9 @@ namespace Restaurant
 {
     public class Restaurant
     {
+        public Size RestaurantSize = new Size(9, 7);
         public Table[] Tables = new Table[6];
-        public static Point[] TableForFood = new Point[7]
+        public Point[] TableForFood = new Point[7]
         {
             new Point(1, 0),
             new Point(2, 0),
@@ -22,11 +23,13 @@ namespace Restaurant
             new Point(7, 0),
         };
         public List<Guest> GuestsList = new List<Guest>();
-        public Point waiterPosition;
+        //public TableState DishInHand = new TableState();
+        public Waiter Waiter;
         DispatcherTimer timer;
 
         public Restaurant()
         {
+            Waiter = new Waiter(this);
             StartTimer();
         }
 
@@ -82,5 +85,6 @@ namespace Restaurant
             table.IsOccupated = false;
             table.Served = false;
         }
+
     }
 }

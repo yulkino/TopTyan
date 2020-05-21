@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Logic\Restaurant.cs" />
     <Compile Include="Visual\Cleansing.cs" />
     <Compile Include="Logic\TableActions.cs" />
     <Compile Include="Logic\Rating.cs" />

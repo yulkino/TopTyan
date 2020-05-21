@@ -15,11 +15,11 @@ namespace Restaurant
             AddInInventory();
         }
 
-        public void ServedTable(Guest guestInf)
-        {
-            Tables[guestInf.NumberOfTable].Served = true;
-            Tables[guestInf.NumberOfTable].FoodOnTable = Waiter.DishInHand;
-        }
+        //public void ServedTable(Guest guestInf)
+        //{
+        //    Tables[guestInf.NumberOfTable].Served = true;
+        //    Tables[guestInf.NumberOfTable].FoodOnTable = Waiter.DishInHand;
+        //}
 
         public void AcceptOrderOrServe(Point waiterPosition)
         {
@@ -29,7 +29,7 @@ namespace Restaurant
                 guestInf.OrderFood();
                 guestInf.AcceptOrder = true;
             }
-            else  
+            else
             if (Tables.FirstOrDefault(p => p.Position == waiterPosition).IsOccupated && guestInf.Order != TableState.EmptyTable
                 && Waiter.DishInHand != TableState.EmptyTable && !Tables[guestInf.NumberOfTable].Served)
             {
@@ -43,11 +43,11 @@ namespace Restaurant
             }
         }
 
-        public static void CleanTable(Table table)
-        {
-            table.FoodOnTable = TableState.EmptyTable;
-            table.IsOccupated = false;
-            table.Served = false;
-        }
+        //public static void CleanTable(Table table)
+        //{
+        //    table.FoodOnTable = TableState.EmptyTable;
+        //    table.IsOccupated = false;
+        //    table.Served = false;
+        //}
     }
 }

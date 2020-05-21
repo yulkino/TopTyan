@@ -25,7 +25,7 @@ namespace Restaurant
         }
     }
 
-    partial class MainWindow : Window
+    partial class MainWindow : Window 
     {
         Image foodInHandImage;
         public Image FoodInHandImage
@@ -41,9 +41,9 @@ namespace Restaurant
             }
         }
 
-        public void AddInInventory()
+        public void AddInInventory(WaiterModel waiter)
         {
-            FoodInHandImage = GetImage(Textures.Dish[(int)Waiter.DishInHand - 1]);
+            FoodInHandImage = GetImage(Textures.Dish[(int)waiter.DishInHand - 1]);
         }
 
         Image orderImage;
@@ -80,7 +80,7 @@ namespace Restaurant
             }
         }
 
-        public void OutputLabel(string text)
+        public void OutputLabel(string text) 
         {
             DishName = new Label
             {
@@ -124,10 +124,10 @@ namespace Restaurant
             Grid.SetColumn(Counter, 2);
         }
 
-        public void ClearHand()
+        public void ClearHand(WaiterModel waiter)
         {
             FoodInHandImage = new Image();
-            Waiter.DishInHand = TableState.EmptyTable;
+            waiter.DishInHand = TableState.EmptyTable;
         }
     }
 }

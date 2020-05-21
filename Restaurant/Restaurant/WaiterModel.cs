@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant
 {
-    class Guests
+    class WaiterModel
     {
-        //public static List<Guest> GuestsList = new List<Guest>();
     }
 }

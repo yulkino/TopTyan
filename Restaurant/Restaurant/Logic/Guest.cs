@@ -10,25 +10,26 @@ namespace Restaurant
 {
     public class Guest
     {
-        public MainWindow window;
+        // public MainWindow window;
+        public Restaurant Environment; 
         public TableState Order;
         public int NumberOfTable;
-        public bool AcceptOrder;
-        public Image GuestImage;
-        public Image DishImage;
+        public bool IsOrderAccepted;
+        //public Image GuestImage;
+        //public Image DishImage;
         public DispatcherTimer TimerForOrder = new DispatcherTimer();
 
-        public Guest(MainWindow mainWindow)
+        public Guest(Restaurant rest)
         {
-            window = mainWindow;
+            Environment = rest;
         }
 
-        public void GuestTimer()
+        public void SetTimer()
         {
             TimerForOrder.Interval = TimeSpan.FromSeconds(5);
             TimerForOrder.Tick += (sender, args) =>
             {
-                if (AcceptOrder)
+                if (IsOrderAccepted)
                 {
                     TimerForOrder.Stop();
                     TimerForOrder = new DispatcherTimer();

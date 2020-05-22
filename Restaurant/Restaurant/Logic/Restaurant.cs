@@ -29,6 +29,7 @@ namespace Restaurant
 
         public Restaurant()
         {
+            CreateTables();
             Waiter = new Waiter(this);
             StartTimer();
         }
@@ -44,28 +45,26 @@ namespace Restaurant
                 {
                     GuestsList.Add(g);
                     var rnd = new Random();
-                    //var guest = GetImage(Textures.GuestImages[rnd.Next(0, 5)]);
-                    //g.GuestImage = guest;
-                    //guest.MouseMove += (sender1, args1) =>
-                    //{
-                    //    if (g.Order != TableState.EmptyTable)
-                    //    {
-                    //        OutputOrder(GetImage(Textures.Dish[(int)g.Order - 1]));
-                    //        OutputLabel(Textures.DishName[(int)g.Order - 1]);
-                    //        OutputCounter();
-                    //    }
-                    //};
-                    //guest.MouseLeave += (sender2, args2) =>
-                    //{
-                    //    OrderImage = new Image();
-                    //    DishName = new Label();
-                    //};
-                    //Draw(guest, Tables[g.NumberOfTable].Position);
                     Tables[g.NumberOfTable].IsOccupated = true;
                     g.SetTimer();
                 }
             };
             timer.Start();
+        }
+
+        public void CreateTables()
+        {
+            Point[] defaultTablesPosition = new Point[6]
+    {
+                new Point(4, 3),
+                new Point(2, 2),
+                new Point(6, 2),
+                new Point(1, 4),
+                new Point(4, 5),
+                new Point(7, 4)
+    };
+            for(var i = 0; i < defaultTablesPosition.Length; i++)
+                Tables[i] = new Table(defaultTablesPosition[i], TableState.EmptyTable);
         }
 
         public void RemoveGuest(Guest guest)

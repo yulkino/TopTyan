@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TableModel.cs" />
+    <Compile Include="Visual\InfoPanelProcessing.cs" />
+    <Compile Include="WaiterModel.cs" />
     <Page Include="Visual\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,8 +66,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GuestModel.cs" />
     <Compile Include="Logic\Restaurant.cs" />
-    <Compile Include="Visual\Cleansing.cs" />
+    <Compile Include="Visual\Cleaning.cs" />
     <Compile Include="Logic\TableActions.cs" />
     <Compile Include="Logic\Rating.cs" />
     <Compile Include="Visual\Textures.cs" />

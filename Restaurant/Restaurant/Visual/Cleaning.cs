@@ -21,7 +21,7 @@ namespace Restaurant
         //    OutputStars();
         //}  
 
-        public void CleanTableImage(Guest guest)
+        public void CleanTableImage(GuestModel guest)
         {
             if(guest.DishImage != null)
                 floor.Children.Remove(guest.DishImage);

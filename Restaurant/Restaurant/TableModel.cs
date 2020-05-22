@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Restaurant
 {
-    public class WaiterModel
+    public class TableModel
     {
-        public TableState DishInHand;
         public Point Position;
     }
 }

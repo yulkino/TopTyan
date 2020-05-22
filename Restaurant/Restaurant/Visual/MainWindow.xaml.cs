@@ -21,29 +21,27 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window
     {
-        //public Point[] TableForFood = new Point[7] 
-        //{
-        //    new Point(1, 0),
-        //    new Point(2, 0),
-        //    new Point(3, 0),
-        //    new Point(4, 0),
-        //    new Point(5, 0),
-        //    new Point(6, 0),
-        //    new Point(7, 0),
-        //};
-        //public static Table[] Tables = new Table[6];
+        public Point[] TableForFood = new Point[7]
+        {
+            new Point(1, 0),
+            new Point(2, 0),
+            new Point(3, 0),
+            new Point(4, 0),
+            new Point(5, 0),
+            new Point(6, 0),
+            new Point(7, 0),
+        };
         public InfoPanel panelUp = new InfoPanel();
         public InfoPanel panelDown = new InfoPanel();
 
         public MainWindow()
         {
             InitializeComponent();
-            GetFloor();
-            GetInfoPanel();
-            CreateTable();
+            DrawFloor();
+            SetInfoPanel();
+            DrawTablesForFood();
             StartPlayerMovement();
             GetContourInventory();
-            StartTimer();
             OutputStars();
         }
 
@@ -58,7 +56,7 @@ namespace Restaurant
             brush.TileMode = TileMode.Tile;
         }
 
-        public void GetInfoPanel()
+        public void SetInfoPanel()
         {
             Grid1.Children.Add(panelUp.Panel);
             Grid.SetRow(panelUp.Panel, 0);
@@ -66,22 +64,28 @@ namespace Restaurant
             Grid.SetRow(panelDown.Panel, 2);
         }
 
-        public void CreateTable()
+        //public void CreateTable()
+        //{
+        //    for(var forg = 0; forg < defaultTablesPosition.Length; forg++)
+        //    {
+        //        Draw(GetImage("texture\\Guests\\DefaultTable.png"), defaultTablesPosition[forg]);
+        //        //Tables[forg] = new Table(defaultTablesPosition[forg], TableState.EmptyTable);
+        //    }
+        //    //for (var forf = 0; forf <= 6; forf++)
+        //    //{
+        //    //    Draw(GetImage("texture\\TableForFood\\TableForFood.png"), TableForFood[forf]);
+        //    //    Draw(GetImage(Textures.FoodImages[forf]), TableForFood[forf]);
+        //    //}
+        //}
+
+        public void DrawTable(TableModel table)
         {
-            Point[] defaultTablesPosition = new Point[6] 
-            {
-                new Point(4, 3),
-                new Point(2, 2),
-                new Point(6, 2),
-                new Point(1, 4),
-                new Point(4, 5),
-                new Point(7, 4)
-            };
-            for(var forg = 0; forg < defaultTablesPosition.Length; forg++)
-            {
-                Draw(GetImage("texture\\Guests\\DefaultTable.png"), defaultTablesPosition[forg]);
-                Tables[forg] = new Table(defaultTablesPosition[forg], TableState.EmptyTable);
-            }
+            Draw(GetImage("texture\\Guests\\DefaultTable.png"), table.Position);
+        }
+
+        public void DrawTablesForFood()
+        {
+
             for (var forf = 0; forf <= 6; forf++)
             {
                 Draw(GetImage("texture\\TableForFood\\TableForFood.png"), TableForFood[forf]);
@@ -118,7 +122,7 @@ namespace Restaurant
             image.Source = bitmapSource;
         }
 
-        public void GetFloor()
+        public void DrawFloor()
         {
             ImageBrush brush = new ImageBrush(GetImage("texture\\floor.jpg").Source);
             floor.Background = brush;

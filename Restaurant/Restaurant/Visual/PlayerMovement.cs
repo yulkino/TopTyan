@@ -20,11 +20,9 @@ namespace Restaurant
 
         public void StartPlayerMovement()
         {
-            //waiterPosition = new Point();
             waiter = GetImage(Textures.PlayerMovement[3]);
             Grid.SetZIndex(waiter, 3);
             floor.Children.Add(waiter);
-            //MakeSteps(0, 0);
         }
 
         public void KeyDetected(object sender, KeyEventArgs e)
@@ -33,38 +31,32 @@ namespace Restaurant
             switch (e.Key)
             {
                 case Key.W:
-                    MakeStepsWithAnimation(waiter, 0, -1);
+                    //MakeStepsWithAnimation(waiter, 0, -1);
                     break;
                 case Key.A:
-                    MakeStepsWithAnimation(waiter, -1, 0);
+                    //MakeStepsWithAnimation(waiter, -1, 0);
                     break;
                 case Key.S:
-                    MakeStepsWithAnimation(waiter, 0, 1);
+                    //MakeStepsWithAnimation(waiter, 0, 1);
                     break;
                 case Key.D:
-                    MakeStepsWithAnimation(waiter, 1, 0);
+                    //MakeStepsWithAnimation(waiter, 1, 0);
                     break;
                 case Key.E:
-                    InteractionWithTables(waiterPosition);
+                    //InteractionWithTables(waiterPosition);
                     break;
             }
         }
 
-        public void MakeSteps(int dx, int dy)
+        public void MoveWaiter(WaiterModel waiterModel)
         {
-            if (InMap(dx, dy) && !IsSituationForWorkaround(dx, dy))
-            {
-                waiterPosition.X += dx;
-                waiterPosition.Y += dy;
-                Grid.SetColumn(waiter, (int)waiterPosition.X);
-                Grid.SetRow(waiter, (int)waiterPosition.Y);
-                //Draw(waiter, waiterPosition);
-            }
+            Grid.SetColumn(waiter, (int)waiterModel.Position.X);
+            Grid.SetRow(waiter, (int)waiterModel.Position.X);
         }
 
-        private void MakeStepsWithAnimation(UIElement element, int dx, int dy)
+        private void MakeStepsWithAnimation(UIElement element, int dx, int dy, WaiterModel waiterModel)
         {
-            if (!InMap(dx, dy) || IsSituationForWorkaround(dx, dy)) return;
+            //if (!InMap(dx, dy) || IsSituationForWorkaround(dx, dy)) return;
             int index = dx == 1 ? 1 : dx == -1 ? 2 : dy == 1 ? 3 : 0;
             ReplaceImage(waiter, Textures.PlayerMovement[index]);
             MovingLocked = true;
@@ -79,7 +71,7 @@ namespace Restaurant
             };
             animation.Completed += (sender, args) =>
             {
-                MakeSteps(dx, dy);
+                MoveWaiter(waiterModel);
                 MovingLocked = false;
             };
             Storyboard.SetTarget(animation, element);

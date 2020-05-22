@@ -8,10 +8,10 @@ namespace Restaurant
 {
     public enum Event
     {
-        PressedW,
+        PressedE,
         PressedD,
         PressedS,
         PressedA,
-        PressedE
+        PressedW
     }
 }

@@ -8,7 +8,7 @@ namespace Restaurant
 {
     public interface IInterpretatable
     {
-        Queue<Event> EventQueue { get; }
-        Dictionary<Event, Action> InterpretatableAction { get; }
+        Queue<EventData> EventQueue { get; }
+        Dictionary<Event, Action<EventData>> Actions { get; }
     }
 }

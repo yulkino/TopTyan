@@ -19,7 +19,7 @@ namespace Restaurant
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IInterpretatable
     {
         public Point[] TableForFood = new Point[7]
         {
@@ -33,9 +33,15 @@ namespace Restaurant
         };
         public InfoPanel panelUp = new InfoPanel();
         public InfoPanel panelDown = new InfoPanel();
+        Interpretator e;
+
+        public Queue<EventData> EventQueue { get; } = new Queue<EventData>();
+
+        public Dictionary<Event, Action<EventData>> Actions { get; }
 
         public MainWindow()
         {
+            e = new Interpretator(new Game(), this);
             InitializeComponent();
             DrawFloor();
             SetInfoPanel();

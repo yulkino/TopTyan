@@ -55,7 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Interpretation\Commands.cs" />
+    <Compile Include="Interpretation\Event.cs" />
+    <Compile Include="Interpretation\EventData.cs" />
     <Compile Include="Interpretation\IInterpretatable.cs" />
     <Compile Include="Interpretation\Interpretator.cs" />
     <Compile Include="Models\TableModel.cs" />

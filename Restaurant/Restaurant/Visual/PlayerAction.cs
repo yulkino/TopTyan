@@ -41,17 +41,22 @@ namespace Restaurant
             {
                 case Key.W:
                     //MakeStepsWithAnimation(waiter, 0, -1);
+                    EventQueue.Enqueue(new EventData(Event.PressedW));
                     break;
                 case Key.A:
+                    EventQueue.Enqueue(new EventData(Event.PressedA));
                     //MakeStepsWithAnimation(waiter, -1, 0);
                     break;
                 case Key.S:
+                    EventQueue.Enqueue(new EventData(Event.PressedS));
                     //MakeStepsWithAnimation(waiter, 0, 1);
                     break;
                 case Key.D:
+                    EventQueue.Enqueue(new EventData(Event.PressedD));
                     //MakeStepsWithAnimation(waiter, 1, 0);
                     break;
                 case Key.E:
+                    EventQueue.Enqueue(new EventData(Event.PressedE));
                     //InteractionWithTables(waiterPosition);
                     break;
             }

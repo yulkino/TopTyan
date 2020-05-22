@@ -25,10 +25,16 @@ namespace Restaurant
 
         void QueueTimerTick()
         {
-            while(Logic.EventQueue.Count != 0)
-                Visual.InterpretatableAction[Logic.EventQueue.Dequeue()]();
+            while (Logic.EventQueue.Count != 0)
+            {
+                var action = Logic.EventQueue.Dequeue();
+                Visual.Actions[action.Event](action);
+            }
             while (Visual.EventQueue.Count != 0)
-                Logic.InterpretatableAction[Visual.EventQueue.Dequeue()]();
+            {
+                var action = Visual.EventQueue.Dequeue();
+                Logic.Actions[action.Event](action);
+            }
         }
     }
 }

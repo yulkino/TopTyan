@@ -27,20 +27,20 @@ namespace Restaurant
         public Waiter Waiter;
         DispatcherTimer timer;
 
-        public Queue<Event> EventQueue { get; } = new Queue<Event>();
-        public Dictionary<Event, Action> InterpretatableAction { get; }
+        public Queue<EventData> EventQueue { get; } = new Queue<EventData>();
+        public Dictionary<Event, Action<EventData>> Actions { get; }
 
         public Game()
         {
             CreateTables();
             Waiter = new Waiter(this);
-            InterpretatableAction = new Dictionary<Event, Action>
+            Actions = new Dictionary<Event, Action<EventData>>
             {
-                { Event.PressedE, ()=> Waiter.InteractWithTables() },
-                { Event.PressedW, ()=> Waiter.MakeSteps(0, -1) },
-                { Event.PressedA, ()=> Waiter.MakeSteps(-1, 0) },
-                { Event.PressedD, ()=> Waiter.MakeSteps(1, 0) },
-                { Event.PressedS, ()=> Waiter.MakeSteps(0, 1) }
+                { Event.PressedE, (e)=> Waiter.InteractWithTables() },
+                { Event.PressedW, (e)=> Waiter.MakeSteps(0, -1) },
+                { Event.PressedA, (e)=> Waiter.MakeSteps(-1, 0) },
+                { Event.PressedD, (e)=> Waiter.MakeSteps(1, 0) },
+                { Event.PressedS, (e)=> Waiter.MakeSteps(0, 1) }
             };
             StartTimer();
         }

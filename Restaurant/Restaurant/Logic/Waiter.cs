@@ -42,7 +42,7 @@ namespace Restaurant
         public void ServeTable(Guest guest)
         {
             Environment.Tables[guest.NumberOfTable].Serve(DishInHand);
-            Rating.UpdateRating(Environment.Tables[guest.NumberOfTable], guest);
+            //Rating.UpdateRating(Environment.Tables[guest.NumberOfTable], guest);
         }
 
         public void InteractWithTables()

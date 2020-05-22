@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Restaurant
 {
-    class Interpretator
+    public enum Event
     {
-
+        PressedW,
+        PressedD,
+        PressedS,
+        PressedA,
+        PressedE
     }
 }

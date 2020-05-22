@@ -8,7 +8,7 @@ using System.Windows.Threading;
 
 namespace Restaurant
 {
-    public class Game
+    public class Game : IInterpretatable
     {
         public Size RestaurantSize = new Size(9, 7);
         public Table[] Tables = new Table[6];
@@ -27,10 +27,21 @@ namespace Restaurant
         public Waiter Waiter;
         DispatcherTimer timer;
 
+        public Queue<Event> EventQueue { get; } = new Queue<Event>();
+        public Dictionary<Event, Action> InterpretatableAction { get; }
+
         public Game()
         {
             CreateTables();
             Waiter = new Waiter(this);
+            InterpretatableAction = new Dictionary<Event, Action>
+            {
+                { Event.PressedE, ()=> Waiter.InteractWithTables() },
+                { Event.PressedW, ()=> Waiter.MakeSteps(0, -1) },
+                { Event.PressedA, ()=> Waiter.MakeSteps(-1, 0) },
+                { Event.PressedD, ()=> Waiter.MakeSteps(1, 0) },
+                { Event.PressedS, ()=> Waiter.MakeSteps(0, 1) }
+            };
             StartTimer();
         }
 
@@ -84,6 +95,5 @@ namespace Restaurant
             table.IsOccupated = false;
             table.Served = false;
         }
-
     }
 }

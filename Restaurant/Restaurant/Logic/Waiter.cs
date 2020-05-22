@@ -10,11 +10,11 @@ namespace Restaurant
 {
     public class Waiter
     {
-        public Restaurant Environment;
+        public Game Environment;
         public Point Position = new Point();
         public TableState DishInHand = new TableState();
 
-        public Waiter(Restaurant rest)
+        public Waiter(Game rest)
         {
             Environment = rest;
         }

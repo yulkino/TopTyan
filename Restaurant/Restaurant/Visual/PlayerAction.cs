@@ -25,6 +25,15 @@ namespace Restaurant
             floor.Children.Add(waiter);
         }
 
+        public void OutputDishOnTable(WaiterModel waiter)
+        {
+            var dishForGuest = GetImage(Textures.FoodOnTable[(int)waiter.DishInHand - 1]);
+            Draw(dishForGuest, waiter.Position);
+            FreeHand();
+        }
+
+
+
         public void KeyDetected(object sender, KeyEventArgs e)
         {
             if (MovingLocked) return;

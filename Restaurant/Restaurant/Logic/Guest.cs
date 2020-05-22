@@ -11,7 +11,7 @@ namespace Restaurant
     public class Guest
     {
         // public MainWindow window;
-        public Restaurant Environment; 
+        public Game Environment; 
         public TableState Order;
         public int NumberOfTable;
         public bool IsOrderAccepted;
@@ -19,7 +19,7 @@ namespace Restaurant
         //public Image DishImage;
         public DispatcherTimer TimerForOrder = new DispatcherTimer();
 
-        public Guest(Restaurant rest)
+        public Guest(Game rest)
         {
             Environment = rest;
         }

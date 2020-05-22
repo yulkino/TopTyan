@@ -25,10 +25,7 @@ namespace Restaurant
             }
         }
 
-        public void AddInInventory(WaiterModel waiter)
-        {
-            FoodInHandImage = GetImage(Textures.Dish[(int)waiter.DishInHand - 1]);
-        }
+        public void AddInInventory(WaiterModel waiter) => FoodInHandImage = GetImage(Textures.Dish[(int)waiter.DishInHand - 1]);
 
         Image orderImage;
         public Image OrderImage
@@ -108,10 +105,6 @@ namespace Restaurant
             Grid.SetColumn(Counter, 2);
         }
 
-        public void CleanHand(WaiterModel waiter)
-        {
-            FoodInHandImage = new Image();
-            waiter.DishInHand = TableState.EmptyTable;
-        }
+        public void FreeHand() => FoodInHandImage = new Image();
     }
 }

@@ -8,7 +8,7 @@ using System.Windows.Threading;
 
 namespace Restaurant
 {
-    public class Restaurant
+    public class Game
     {
         public Size RestaurantSize = new Size(9, 7);
         public Table[] Tables = new Table[6];
@@ -27,7 +27,7 @@ namespace Restaurant
         public Waiter Waiter;
         DispatcherTimer timer;
 
-        public Restaurant()
+        public Game()
         {
             CreateTables();
             Waiter = new Waiter(this);

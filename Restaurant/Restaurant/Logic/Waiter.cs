@@ -22,6 +22,7 @@ namespace Restaurant
         public void TakeDish()
         {
             DishInHand = (TableState)(Array.IndexOf(Environment.TableForFood, Position) + 1);
+            Environment.EventQueue.Enqueue(new EventData(Event.DishTaken, new List<object> { DishInHand }));
         }
 
         public void MakeSteps(int dx, int dy)
@@ -30,6 +31,7 @@ namespace Restaurant
             {
                 Position.X += dx;
                 Position.Y += dy;
+                Environment.EventQueue.Enqueue(new EventData(Event.WaiterMoved, new List<object> { dx, dy, Position }));
             }
         }
 
@@ -42,7 +44,7 @@ namespace Restaurant
         public void ServeTable(Guest guest)
         {
             Environment.Tables[guest.NumberOfTable].Serve(DishInHand);
-            //Rating.UpdateRating(Environment.Tables[guest.NumberOfTable], guest);
+            
         }
 
         public void InteractWithTables()

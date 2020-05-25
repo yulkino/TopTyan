@@ -24,7 +24,6 @@ namespace Restaurant
         {
             Served = true;
             FoodOnTable = tableState;
-            //Waiter.DishInHand;
         }
     }
 }

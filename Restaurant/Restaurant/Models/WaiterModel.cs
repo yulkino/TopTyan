@@ -12,5 +12,11 @@ namespace Restaurant
     {
         public TableState DishInHand;
         public Point Position;
+
+        public WaiterModel(TableState dishInHand, Point position)
+        {
+            DishInHand = dishInHand;
+            Position = position;
+        }
     }
 }

@@ -34,21 +34,37 @@ namespace Restaurant
         public InfoPanel panelUp = new InfoPanel();
         public InfoPanel panelDown = new InfoPanel();
         Interpretator e;
+        List<TableVisual> TablesVisual = new List<TableVisual>();
 
         public Queue<EventData> EventQueue { get; } = new Queue<EventData>();
 
-        public Dictionary<Event, Action<EventData>> Actions { get; }
+        public Dictionary<Event, Action<EventData>> Actions { get; private set; }
+
+        public void FillDictionary()
+        {
+            Actions = new Dictionary<Event, Action<EventData>>
+            {
+                { Event.CreatedTable, eventData =>  DrawTable(new TableModel((Point)eventData.Data[0]))},
+                { Event.GuestArrived, eventData => DrawGuest(new GuestModel((Point)eventData.Data[0]))},
+                { Event.GuestGone, eventData => CleanTableImage(new GuestModel((Point)eventData.Data[0]))},
+                { Event.RatingUpdated, eventData => OutputStars((int)eventData.Data[0], (int)eventData.Data[1])},
+                { Event.DishTaken, eventData => AddInInventory((TableState)eventData.Data[0])},
+                { Event.WaiterMoved, eventData => MakeStepsWithAnimation((int)eventData.Data[0], (int)eventData.Data[1], (Point)eventData.Data[2])},
+                { Event.OrderAccepted, eventData => TablesVisual.FirstOrDefault(p => p.Position == (Point)eventData.Data[0]).InitializeOrder((TableState)eventData.Data[1])}
+            };
+        }
 
         public MainWindow()
         {
             e = new Interpretator(new Game(), this);
             InitializeComponent();
             DrawFloor();
+            FillDictionary();
             SetInfoPanel();
             DrawTablesForFood();
             StartPlayerMovement();
             GetContourInventory();
-            OutputStars();
+            OutputStars(5, 1);
         }
 
         public void GetContourInventory()
@@ -86,6 +102,7 @@ namespace Restaurant
 
         public void DrawTable(TableModel table)
         {
+            TablesVisual.Add(new TableVisual(this) { Position = table.Position });
             Draw(GetImage("texture\\Guests\\DefaultTable.png"), table.Position);
         }
 
@@ -97,6 +114,14 @@ namespace Restaurant
                 Draw(GetImage("texture\\TableForFood\\TableForFood.png"), TableForFood[forf]);
                 Draw(GetImage(Textures.FoodImages[forf]), TableForFood[forf]);
             }
+        }
+
+        public void DrawGuest(GuestModel guest)
+        {
+            var image = GetImage(Textures.GuestImages[new Random().Next(0, 5)]);
+            TablesVisual.FirstOrDefault(p => p.Position == guest.Position).Guest = image;
+            Draw(image, guest.Position);
+
         }
 
         public void Draw(Image image, Point position)

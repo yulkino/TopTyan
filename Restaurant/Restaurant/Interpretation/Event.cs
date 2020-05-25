@@ -12,6 +12,13 @@ namespace Restaurant
         PressedD,
         PressedS,
         PressedA,
-        PressedW
+        PressedW,
+        CreatedTable,
+        GuestArrived,
+        GuestGone,
+        RatingUpdated,
+        DishTaken,
+        WaiterMoved,
+        OrderAccepted
     }
 }

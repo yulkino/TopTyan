@@ -25,7 +25,7 @@ namespace Restaurant
             }
         }
 
-        public void AddInInventory(WaiterModel waiter) => FoodInHandImage = GetImage(Textures.Dish[(int)waiter.DishInHand - 1]);
+        public void AddInInventory(TableState dish) => FoodInHandImage = GetImage(Textures.Dish[(int)dish - 1]);
 
         Image orderImage;
         public Image OrderImage
@@ -75,16 +75,16 @@ namespace Restaurant
             };
         }
 
-        public void OutputStars()
+        public void OutputStars(int starsCount, int ratesCount)
         {
             var image = new Image();
             panelUp.Panel.Children.Add(image);
             Grid.SetColumn(image, 1);
-            var stars = GetImage(Textures.Stars[Rating.Grade]);
+            var stars = GetImage(Textures.Stars[starsCount]);
             panelUp.Panel.Children.Add(stars);
             Grid.SetColumn(stars, 1);
-            OutputCounter();
-            if (Rating.Grade == 0) FinishGame();
+            OutputCounter(ratesCount);
+            //if (Rating.Grade == 0) FinishGame();
         }
 
         Label Counter = new Label()
@@ -94,14 +94,14 @@ namespace Restaurant
             FontFamily = new FontFamily("Courier New")
         };
 
-        public void OutputCounter()
+        public void OutputCounter(int ratesCount)
         {
             if (!panelUp.Panel.Children.Contains(Counter))
             {
-                Counter.Content = "Total:" + Rating.CountRating.ToString();
+                Counter.Content = "Total:" + ratesCount.ToString();
                 panelUp.Panel.Children.Add(Counter);
             }
-            Counter.Content = "Total:" + Rating.CountRating.ToString();
+            Counter.Content = "Total:" + ratesCount.ToString();
             Grid.SetColumn(Counter, 2);
         }
 

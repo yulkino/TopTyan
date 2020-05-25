@@ -23,10 +23,17 @@ namespace Restaurant
 
         public void CleanTableImage(GuestModel guest)
         {
-            if(guest.DishImage != null)
-                floor.Children.Remove(guest.DishImage);
-            if (guest.GuestImage != null)
-                floor.Children.Remove(guest.GuestImage);
+            var tableVisual = TablesVisual.FirstOrDefault(p => p.Position == guest.Position);
+            if (tableVisual.Dish != null)
+            {
+                floor.Children.Remove(tableVisual.Dish);
+                tableVisual.Dish = null;
+            }
+            if (tableVisual.Guest != null)
+            {
+                floor.Children.Remove(tableVisual.Guest);
+                tableVisual.Guest = null;
+            }
         }
     }
 }

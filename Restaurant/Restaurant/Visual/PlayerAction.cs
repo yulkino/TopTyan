@@ -62,13 +62,13 @@ namespace Restaurant
             }
         }
 
-        public void MoveWaiter(WaiterModel waiterModel)
+        public void MoveWaiter(Point position)
         {
-            Grid.SetColumn(waiter, (int)waiterModel.Position.X);
-            Grid.SetRow(waiter, (int)waiterModel.Position.X);
+            Grid.SetColumn(waiter, (int)position.X);
+            Grid.SetRow(waiter, (int)position.Y);
         }
 
-        private void MakeStepsWithAnimation(UIElement element, int dx, int dy, WaiterModel waiterModel)
+        private void MakeStepsWithAnimation(int dx, int dy, Point position)
         {
             //if (!InMap(dx, dy) || IsSituationForWorkaround(dx, dy)) return;
             int index = dx == 1 ? 1 : dx == -1 ? 2 : dy == 1 ? 3 : 0;
@@ -85,10 +85,10 @@ namespace Restaurant
             };
             animation.Completed += (sender, args) =>
             {
-                MoveWaiter(waiterModel);
+                MoveWaiter(position);
                 MovingLocked = false;
             };
-            Storyboard.SetTarget(animation, element);
+            Storyboard.SetTarget(animation, waiter);
             Storyboard.SetTargetProperty(animation, new PropertyPath(MarginProperty));
             var sb = new Storyboard();
             sb.Children.Add(animation);

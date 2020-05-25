@@ -62,6 +62,7 @@
     <Compile Include="Models\TableModel.cs" />
     <Compile Include="Visual\InfoPanelProcessing.cs" />
     <Compile Include="Models\WaiterModel.cs" />
+    <Compile Include="Visual\TableVisual.cs" />
     <Page Include="Visual\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -79,7 +80,6 @@
     <Compile Include="Visual\InfoPanel.cs" />
     <Compile Include="Visual\PlayerAction.cs" />
     <Compile Include="Visual\MainWindow_Timer.cs" />
-    <Compile Include="Logic\Guests.cs" />
     <Compile Include="Logic\TableState.cs" />
     <Compile Include="Logic\Guest.cs" />
     <Compile Include="Logic\Waiter.cs" />

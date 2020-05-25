@@ -10,13 +10,10 @@ namespace Restaurant
 {
     public class Guest
     {
-        // public MainWindow window;
         public Game Environment; 
         public TableState Order;
         public int NumberOfTable;
         public bool IsOrderAccepted;
-        //public Image GuestImage;
-        //public Image DishImage;
         public DispatcherTimer TimerForOrder = new DispatcherTimer();
 
         public Guest(Game rest)
@@ -26,14 +23,14 @@ namespace Restaurant
 
         public void SetTimer()
         {
-            TimerForOrder.Interval = TimeSpan.FromSeconds(5);
+            TimerForOrder.Interval = TimeSpan.FromSeconds(10);
             TimerForOrder.Tick += (sender, args) =>
             {
                 if (IsOrderAccepted)
                 {
                     TimerForOrder.Stop();
                     TimerForOrder = new DispatcherTimer();
-                    TimerForOrder.Interval = TimeSpan.FromSeconds(15);
+                    TimerForOrder.Interval = TimeSpan.FromSeconds(10);
                     TimerForOrder.Tick += (sender1, args1) => Environment.RemoveGuest(this);
                     TimerForOrder.Start();
                 }
@@ -57,8 +54,8 @@ namespace Restaurant
 
         public void OrderFood()
         {
-            var rndDish = new Random();
-            Order = (TableState)rndDish.Next(1, 7);
+            Order = (TableState)new Random().Next(1, 7);
+            Environment.EventQueue.Enqueue(new EventData(Event.OrderAccepted, new List<object> { Environment.Tables[NumberOfTable].Position, Order }));
         }
     }
 }

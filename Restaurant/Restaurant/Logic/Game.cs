@@ -48,15 +48,15 @@ namespace Restaurant
         public void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += (sender, args) =>
             {
                 var g = new Guest(this);
                 if (g.TryTakeTable())
                 {
                     GuestsList.Add(g);
-                    var rnd = new Random();
                     Tables[g.NumberOfTable].IsOccupated = true;
+                    EventQueue.Enqueue(new EventData(Event.GuestArrived, new List<object> {Tables[g.NumberOfTable].Position}));
                     g.SetTimer();
                 }
             };
@@ -74,18 +74,21 @@ namespace Restaurant
                 new Point(4, 5),
                 new Point(7, 4)
     };
-            for(var i = 0; i < defaultTablesPosition.Length; i++)
+            for (var i = 0; i < defaultTablesPosition.Length; i++)
+            {
                 Tables[i] = new Table(defaultTablesPosition[i], TableState.EmptyTable);
+                EventQueue.Enqueue(new EventData(Event.CreatedTable, new List<object> { defaultTablesPosition[i] }));
+            }
         }
 
         public void RemoveGuest(Guest guest)
         {
             guest.TimerForOrder.Stop();
+            EventQueue.Enqueue(new EventData(Event.GuestGone, new List<object> { Tables[guest.NumberOfTable].Position }));
             GuestsList.Remove(guest);
             Rating.UpdateRating(Tables[guest.NumberOfTable], guest);
             CleanTable(Tables[guest.NumberOfTable]);
-            //CleanTableImage(guest);
-            //OutputStars();
+            EventQueue.Enqueue(new EventData(Event.RatingUpdated, new List<object> { Rating.Grade, Rating.CountRating }));
         }
 
 

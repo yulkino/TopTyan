@@ -10,5 +10,10 @@ namespace Restaurant
     public class TableModel
     {
         public Point Position;
+
+        public TableModel(Point pos)
+        {
+            Position = pos;
+        }
     }
 }

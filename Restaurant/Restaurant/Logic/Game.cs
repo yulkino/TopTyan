@@ -85,6 +85,7 @@ namespace Restaurant
             Rating.UpdateRating(Tables[guest.NumberOfTable], guest);
             CleanTable(Tables[guest.NumberOfTable]);
             EventQueue.Enqueue(new EventData(Event.RatingUpdated, new List<object> { Rating.Grade, Rating.CountRating }));
+            if (Rating.Grade == 0) EventQueue.Enqueue(new EventData(Event.FinishGame));
         }
 
 

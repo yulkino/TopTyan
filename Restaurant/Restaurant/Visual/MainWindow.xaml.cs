@@ -44,7 +44,8 @@ namespace Restaurant
                 { Event.DishTaken, eventData => AddInInventory((TableState)eventData.Data[0])},
                 { Event.WaiterMoved, eventData => MakeStepsWithAnimation((int)eventData.Data[0], (int)eventData.Data[1], (Point)eventData.Data[2])},
                 { Event.OrderAccepted, eventData => TablesVisual.FirstOrDefault(p => p.Position == (Point)eventData.Data[0]).InitializeOrder((TableState)eventData.Data[1])},
-                { Event.ServedTable, eventData => OutputDishOnTable((Point)eventData.Data[0], (TableState)eventData.Data[1])}
+                { Event.ServedTable, eventData => OutputDishOnTable((Point)eventData.Data[0], (TableState)eventData.Data[1])},
+                { Event.FinishGame, eventData => FinishGame() }
             };
         }
 
@@ -143,8 +144,8 @@ namespace Restaurant
 
         public void FinishGame()
         {
-            //if(MessageBox.Show("you lose (вы делали это без души)") == MessageBoxResult.OK)
-            //    Environment.Exit(0);
+            if (MessageBox.Show("you lose (вы делали это без души)") == MessageBoxResult.OK)
+                Environment.Exit(0);
         }
     }
 }

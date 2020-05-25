@@ -20,6 +20,7 @@ namespace Restaurant
         DishTaken,
         WaiterMoved,
         OrderAccepted,
-        ServedTable
+        ServedTable,
+        FinishGame
     }
 }

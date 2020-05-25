@@ -68,7 +68,7 @@ namespace Restaurant
                 AccelerationRatio = 0.2,
                 FillBehavior = FillBehavior.Stop,
                 DecelerationRatio = 0.8,
-                Duration = TimeSpan.FromMilliseconds(180)
+                Duration = TimeSpan.FromMilliseconds(140)
             };
             animation.Completed += (sender, args) =>
             {

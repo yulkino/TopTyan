@@ -93,10 +93,10 @@ namespace Restaurant
         {
             if (!panelUp.Panel.Children.Contains(Counter))
             {
-                Counter.Content = "Total:" + ratesCount.ToString();
+                Counter.Content = "Rates\nCount:\n  " + ratesCount.ToString();
                 panelUp.Panel.Children.Add(Counter);
             }
-            Counter.Content = "Total:" + ratesCount.ToString();
+            Counter.Content = "Rates\nCount:\n  " + ratesCount.ToString();
             Grid.SetColumn(Counter, 2);
         }
 

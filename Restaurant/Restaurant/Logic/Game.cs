@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -23,7 +20,6 @@ namespace Restaurant
             new Point(7, 0),
         };
         public List<Guest> GuestsList = new List<Guest>();
-        //public TableState DishInHand = new TableState();
         public Waiter Waiter;
         DispatcherTimer timer;
 

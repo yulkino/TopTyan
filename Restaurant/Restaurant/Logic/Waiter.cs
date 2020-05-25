@@ -44,7 +44,8 @@ namespace Restaurant
         public void ServeTable(Guest guest)
         {
             Environment.Tables[guest.NumberOfTable].Serve(DishInHand);
-            
+            Environment.EventQueue.Enqueue(new EventData(Event.ServedTable, new List<object> { Position, DishInHand }));
+            DishInHand = TableState.EmptyTable;
         }
 
         public void InteractWithTables()

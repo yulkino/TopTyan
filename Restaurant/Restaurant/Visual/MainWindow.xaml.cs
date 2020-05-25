@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Restaurant
 {
@@ -44,13 +37,14 @@ namespace Restaurant
         {
             Actions = new Dictionary<Event, Action<EventData>>
             {
-                { Event.CreatedTable, eventData =>  DrawTable(new TableModel((Point)eventData.Data[0]))},
-                { Event.GuestArrived, eventData => DrawGuest(new GuestModel((Point)eventData.Data[0]))},
-                { Event.GuestGone, eventData => CleanTableImage(new GuestModel((Point)eventData.Data[0]))},
+                { Event.CreatedTable, eventData =>  DrawTable((Point)eventData.Data[0])},
+                { Event.GuestArrived, eventData => DrawGuest((Point)eventData.Data[0])},
+                { Event.GuestGone, eventData => CleanTableImage((Point)eventData.Data[0])},
                 { Event.RatingUpdated, eventData => OutputStars((int)eventData.Data[0], (int)eventData.Data[1])},
                 { Event.DishTaken, eventData => AddInInventory((TableState)eventData.Data[0])},
                 { Event.WaiterMoved, eventData => MakeStepsWithAnimation((int)eventData.Data[0], (int)eventData.Data[1], (Point)eventData.Data[2])},
-                { Event.OrderAccepted, eventData => TablesVisual.FirstOrDefault(p => p.Position == (Point)eventData.Data[0]).InitializeOrder((TableState)eventData.Data[1])}
+                { Event.OrderAccepted, eventData => TablesVisual.FirstOrDefault(p => p.Position == (Point)eventData.Data[0]).InitializeOrder((TableState)eventData.Data[1])},
+                { Event.ServedTable, eventData => OutputDishOnTable((Point)eventData.Data[0], (TableState)eventData.Data[1])}
             };
         }
 
@@ -86,24 +80,10 @@ namespace Restaurant
             Grid.SetRow(panelDown.Panel, 2);
         }
 
-        //public void CreateTable()
-        //{
-        //    for(var forg = 0; forg < defaultTablesPosition.Length; forg++)
-        //    {
-        //        Draw(GetImage("texture\\Guests\\DefaultTable.png"), defaultTablesPosition[forg]);
-        //        //Tables[forg] = new Table(defaultTablesPosition[forg], TableState.EmptyTable);
-        //    }
-        //    //for (var forf = 0; forf <= 6; forf++)
-        //    //{
-        //    //    Draw(GetImage("texture\\TableForFood\\TableForFood.png"), TableForFood[forf]);
-        //    //    Draw(GetImage(Textures.FoodImages[forf]), TableForFood[forf]);
-        //    //}
-        //}
-
-        public void DrawTable(TableModel table)
+        public void DrawTable(Point position)
         {
-            TablesVisual.Add(new TableVisual(this) { Position = table.Position });
-            Draw(GetImage("texture\\Guests\\DefaultTable.png"), table.Position);
+            TablesVisual.Add(new TableVisual(this) { Position = position });
+            Draw(GetImage("texture\\Guests\\DefaultTable.png"), position);
         }
 
         public void DrawTablesForFood()
@@ -116,11 +96,11 @@ namespace Restaurant
             }
         }
 
-        public void DrawGuest(GuestModel guest)
+        public void DrawGuest(Point position)
         {
             var image = GetImage(Textures.GuestImages[new Random().Next(0, 5)]);
-            TablesVisual.FirstOrDefault(p => p.Position == guest.Position).Guest = image;
-            Draw(image, guest.Position);
+            TablesVisual.FirstOrDefault(p => p.Position == position).Guest = image;
+            Draw(image, position);
 
         }
 

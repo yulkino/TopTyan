@@ -19,6 +19,7 @@ namespace Restaurant
         RatingUpdated,
         DishTaken,
         WaiterMoved,
-        OrderAccepted
+        OrderAccepted,
+        ServedTable
     }
 }

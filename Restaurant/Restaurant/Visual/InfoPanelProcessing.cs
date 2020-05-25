@@ -79,14 +79,15 @@ namespace Restaurant
             panelUp.Panel.Children.Add(stars);
             Grid.SetColumn(stars, 1);
             OutputCounter(ratesCount);
-            //if (Rating.Grade == 0) FinishGame();
         }
 
         Label Counter = new Label()
         {
             VerticalAlignment = VerticalAlignment.Center,
             FontSize = 15,
-            FontFamily = new FontFamily("Courier New")
+            FontWeight = FontWeights.SemiBold,
+            FontFamily = new FontFamily("Courier New"),
+            Foreground = new SolidColorBrush(Colors.Brown)
         };
 
         public void OutputCounter(int ratesCount)

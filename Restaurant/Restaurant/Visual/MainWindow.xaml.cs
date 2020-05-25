@@ -58,19 +58,22 @@ namespace Restaurant
             SetInfoPanel();
             DrawTablesForFood();
             StartPlayerMovement();
-            GetContourInventory();
+            GetBackgroundInfoPanels();
             OutputStars(5, 1);
         }
 
-        public void GetContourInventory()
+        public void GetBackgroundInfoPanels()
         {
+            var backInfoFirst = new ImageBrush(GetImage("texture\\back0.png").Source);
+            panelUp.Panel.Background = backInfoFirst;
+            backInfoFirst.TileMode = TileMode.Tile;
             var contourImage = GetImage("texture\\DishInHand\\Contour.png");
             contourImage.Stretch = Stretch.Fill;
             panelDown.Panel.Children.Add(contourImage);
             Grid.SetColumn(contourImage, 2);
-            ImageBrush brush = new ImageBrush(GetImage("texture\\back.png").Source);
-            panelDown.Panel.Background = brush;
-            brush.TileMode = TileMode.Tile;
+            var backInfoSecond = new ImageBrush(GetImage("texture\\back.png").Source);
+            panelDown.Panel.Background = backInfoSecond;
+            backInfoSecond.TileMode = TileMode.Tile;
         }
 
         public void SetInfoPanel()

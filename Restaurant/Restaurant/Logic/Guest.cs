@@ -19,14 +19,14 @@ namespace Restaurant
 
         public void SetTimer()
         {
-            TimerForOrder.Interval = TimeSpan.FromSeconds(10);
+            TimerForOrder.Interval = TimeSpan.FromSeconds(25);
             TimerForOrder.Tick += (sender, args) =>
             {
                 if (IsOrderAccepted)
                 {
                     TimerForOrder.Stop();
                     TimerForOrder = new DispatcherTimer();
-                    TimerForOrder.Interval = TimeSpan.FromSeconds(10);
+                    TimerForOrder.Interval = TimeSpan.FromSeconds(20);
                     TimerForOrder.Tick += (sender1, args1) => Environment.RemoveGuest(this);
                     TimerForOrder.Start();
                 }

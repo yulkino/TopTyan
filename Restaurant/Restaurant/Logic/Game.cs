@@ -35,7 +35,7 @@ namespace Restaurant
         void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += (sender, args) =>
             {
                 var g = new Guest(this);

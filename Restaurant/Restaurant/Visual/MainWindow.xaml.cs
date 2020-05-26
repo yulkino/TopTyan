@@ -22,6 +22,7 @@ namespace Restaurant
 
         public MainWindow()
         {
+            new Interpretator(new Game(), this);
             InitializeComponent();
             DrawFloor();
             FillDictionary();

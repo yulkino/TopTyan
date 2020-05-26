@@ -51,7 +51,7 @@ namespace Restaurant
 
         public void OrderFood()
         {
-            Order = (TableState)new Random().Next(1, 7);
+            Order = (TableState)new Random().Next(1, 8);
             Environment.EventQueue.Enqueue(new EventData(Event.OrderAccepted, new List<object> { Environment.Tables[NumberOfTable].Position, Order }));
         }
 

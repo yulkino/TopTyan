@@ -35,7 +35,7 @@ namespace Restaurant
         void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(5);
+            timer.Interval = TimeSpan.FromSeconds(8);
             timer.Tick += (sender, args) =>
             {
                 var g = new Guest(this);
@@ -60,7 +60,6 @@ namespace Restaurant
 
         public void RemoveGuest(Guest guest)
         {
-            guest.StopTimer();
             EventQueue.Enqueue(new EventData(Event.GuestGone, new List<object> { Tables[guest.NumberOfTable].Position }));
             GuestsList.Remove(guest);
             Rating.UpdateRating(Tables[guest.NumberOfTable], guest);

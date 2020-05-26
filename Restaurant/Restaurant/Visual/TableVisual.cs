@@ -8,6 +8,7 @@ namespace Restaurant
         MainWindow Window;
         string DishName = "";
         public Image Dish { get; set; }
+        public Image DishPanel { get; set; }
         public Point Position { get; set; }
         Image guest;
 
@@ -20,8 +21,8 @@ namespace Restaurant
                 if (guest == null) return;
                 guest.MouseMove += (sender1, args1) =>
                 {
-                    if (Dish == null) return;
-                    Window.OutputOrder(Dish);
+                    if (DishPanel == null) return;
+                    Window.OutputOrder(DishPanel);
                     Window.OutputLabel(DishName);
                 };
                 guest.MouseLeave += (sender2, args2) =>
@@ -37,7 +38,7 @@ namespace Restaurant
         public void InitializeOrder(int order)
         {
             DishName = Textures.DishName[order - 1];
-            Dish = MainWindow.GetImage(Textures.Dish[order - 1]);
+            DishPanel = MainWindow.GetImage(Textures.Dish[order - 1]);
         }
     }
 }

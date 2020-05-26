@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,6 +23,7 @@ namespace Restaurant
         {
             var dishForGuest = GetImage(Textures.FoodOnTable[dishInHand - 1]);
             Draw(dishForGuest, position);
+            TablesVisual.FirstOrDefault(p => p.Position == position).Dish = dishForGuest;
             FreeHand();
         }
 

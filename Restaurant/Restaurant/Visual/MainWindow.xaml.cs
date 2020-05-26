@@ -34,10 +34,10 @@ namespace Restaurant
 
         void FillDictionary() => Actions = new Dictionary<Event, Action<EventData>>
         {
-            { Event.CreatedTable, eventData =>  DrawTable((Point)eventData.Data[0])},
+            { Event.CreatedTable, eventData => DrawTable((Point)eventData.Data[0])},
             { Event.GuestArrived, eventData => DrawGuest((Point)eventData.Data[0])},
             { Event.GuestGone, eventData => CleanTableImage((Point)eventData.Data[0])},
-            { Event.CreatedTablesForFood, eventData =>  DrawTablesForFood((Point[])eventData.Data[0])},
+            { Event.CreatedTablesForFood, eventData => DrawTablesForFood((Point[])eventData.Data[0])},
             { Event.RatingUpdated, eventData => OutputStars((int)eventData.Data[0], (int)eventData.Data[1])},
             { Event.DishTaken, eventData => AddInInventory((int)eventData.Data[0])},
             { Event.WaiterMoved, eventData => MakeStepsWithAnimation((int)eventData.Data[0], (int)eventData.Data[1], (Point)eventData.Data[2])},
@@ -91,7 +91,6 @@ namespace Restaurant
             var image = GetImage(Textures.GuestImages[new Random().Next(0, 5)]);
             TablesVisual.FirstOrDefault(p => p.Position == position).Guest = image;
             Draw(image, position);
-
         }
 
         public void Draw(Image image, Point position)

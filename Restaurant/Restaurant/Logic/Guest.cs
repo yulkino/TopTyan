@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Threading;
 
 namespace Restaurant
@@ -20,7 +21,7 @@ namespace Restaurant
 
         void SetTimer()
         {
-            TimerForOrder.Interval = TimeSpan.FromSeconds(25);
+            TimerForOrder.Interval = TimeSpan.FromSeconds(20);
             TimerForOrder.Tick += (sender, args) =>
             {
                 if (IsOrderAccepted)
@@ -28,25 +29,30 @@ namespace Restaurant
                     TimerForOrder.Stop();
                     TimerForOrder = new DispatcherTimer();
                     TimerForOrder.Interval = TimeSpan.FromSeconds(20);
-                    TimerForOrder.Tick += (sender1, args1) => Environment.RemoveGuest(this);
+                    TimerForOrder.Tick += (sender1, args1) =>
+                    {
+                        Environment.RemoveGuest(this);
+                        TimerForOrder.Stop();
+                    };
                     TimerForOrder.Start();
                 }
                 else
+                {
                     Environment.RemoveGuest(this);
+                    TimerForOrder.Stop();
+                }
             };
             TimerForOrder.Start();
         }
 
         public bool TryTakeTable()
         {
-            for (var i = 0; i < Environment.Tables.Length; i++)
-                if (!Environment.Tables[i].IsOccupated)
-                {
-                    NumberOfTable = i;
-                    Environment.Tables[NumberOfTable].IsOccupated = true;
-                    return true;
-                }
-            return false;
+            var freeTables = Environment.Tables.Where(f => !f.IsOccupated).ToArray();
+            if (freeTables.Length == 0) return false;
+            var table = freeTables[new Random().Next(0, freeTables.Length)];
+            NumberOfTable = Array.IndexOf(Environment.Tables, Environment.Tables.FirstOrDefault(p => p.Position == table.Position));
+            Environment.Tables[NumberOfTable].IsOccupated = true;
+            return true;
         }
 
         public void OrderFood()
@@ -54,7 +60,5 @@ namespace Restaurant
             Order = (TableState)new Random().Next(1, 8);
             Environment.EventQueue.Enqueue(new EventData(Event.OrderAccepted, new List<object> { Environment.Tables[NumberOfTable].Position, Order }));
         }
-
-        public void StopTimer() => TimerForOrder.Stop();
     }
 }

@@ -18,6 +18,7 @@ namespace Restaurant
                 floor.Children.Remove(tableVisual.Guest);
                 tableVisual.Guest = null;
             }
+            tableVisual.DishPanel = null;
         }
     }
 }

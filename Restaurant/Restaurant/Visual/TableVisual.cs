@@ -6,41 +6,38 @@ namespace Restaurant
     class TableVisual
     {
         MainWindow Window;
-        public string DishName = "";
-        public Image Dish;
+        string DishName = "";
+        public Image Dish { get; set; }
+        public Point Position { get; set; }
         Image guest;
+
         public Image Guest
-        { get => guest;
+        {
+            get => guest;
             set
             {
                 guest = value;
                 if (guest == null) return;
                 guest.MouseMove += (sender1, args1) =>
                 {
-                    if (Dish != null)
-                    {
-                        Window.OutputOrder(Dish);
-                        Window.OutputLabel(DishName);
-                    }
+                    if (Dish == null) return;
+                    Window.OutputOrder(Dish);
+                    Window.OutputLabel(DishName);
                 };
                 guest.MouseLeave += (sender2, args2) =>
                 {
-                    Window.OrderImage = new Image();
-                    Window.DishName = new Label();
+                    Window.LowerPanel.Left = new Image();
+                    Window.LowerPanel.Middle = new Label();
                 };
             }
         }
-        public Point Position;
 
-        public TableVisual(MainWindow win)
-        {
-            Window = win;
-        }
+        public TableVisual(MainWindow win) => Window = win;
         
-        public void InitializeOrder(TableState order)
+        public void InitializeOrder(int order)
         {
-            DishName = Textures.DishName[(int)order - 1];
-            Dish = MainWindow.GetImage(Textures.Dish[(int)order - 1]);
+            DishName = Textures.DishName[order - 1];
+            Dish = MainWindow.GetImage(Textures.Dish[order - 1]);
         }
     }
 }

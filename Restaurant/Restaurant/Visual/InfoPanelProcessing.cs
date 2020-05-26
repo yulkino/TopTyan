@@ -6,83 +6,30 @@ namespace Restaurant
 {
     partial class MainWindow : Window
     {
-        Image foodInHandImage;
-        public Image FoodInHandImage
-        {
-            get => foodInHandImage;
-            set
-            {
-                if (foodInHandImage != null)
-                    panelDown.Panel.Children.Remove(foodInHandImage);
-                foodInHandImage = value;
-                panelDown.Panel.Children.Add(foodInHandImage);
-                Grid.SetColumn(foodInHandImage, 2);
-            }
-        }
+        void AddInInventory(int dish) => LowerPanel.Right = GetImage(Textures.Dish[dish - 1]);
 
-        public void AddInInventory(TableState dish) => FoodInHandImage = GetImage(Textures.Dish[(int)dish - 1]);
+        public void OutputOrder(Image orderImage) => LowerPanel.Left = orderImage;
 
-        Image orderImage;
-        public Image OrderImage
+        public void OutputLabel(string text) => LowerPanel.Middle = new Label
         {
-            get => orderImage;
-            set
-            {
-                if (orderImage != null)
-                    panelDown.Panel.Children.Remove(orderImage);
-                orderImage = value;
-                panelDown.Panel.Children.Add(orderImage);
-                Grid.SetColumn(orderImage, 0);
-            }
-        }
+            Content = text,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            VerticalAlignment = VerticalAlignment.Center,
+            FontSize = 24,
+            FontWeight = FontWeights.SemiBold,
+            FontFamily = new FontFamily("Courier New"),
+            Foreground = new SolidColorBrush(Colors.DarkSlateGray)
+        };
 
-        public void OutputOrder(Image orderImage)
+        void OutputStars(int starsCount, int ratesCount)
         {
-            if (!panelDown.Panel.Children.Contains(orderImage))
-                OrderImage = orderImage;
-        }
-
-        Label name;
-        public Label DishName
-        {
-            get => name;
-            set
-            {
-                if (name != null)
-                    panelDown.Panel.Children.Remove(name);
-                name = value;
-                panelDown.Panel.Children.Add(name);
-                Grid.SetColumn(name, 1);
-            }
-        }
-
-        public void OutputLabel(string text)
-        {
-            DishName = new Label
-            {
-                Content = text,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Center,
-                FontSize = 24,
-                FontWeight = FontWeights.SemiBold,
-                FontFamily = new FontFamily("Courier New"),
-                Foreground = new SolidColorBrush(Colors.DarkSlateGray)
-            };
-        }
-
-        public void OutputStars(int starsCount, int ratesCount)
-        {
-            var image = new Image();
-            panelUp.Panel.Children.Add(image);
-            Grid.SetColumn(image, 1);
-            var stars = GetImage(Textures.Stars[starsCount]);
-            panelUp.Panel.Children.Add(stars);
-            Grid.SetColumn(stars, 1);
+            UpperPanel.Middle = GetImage(Textures.Stars[starsCount]);
             OutputCounter(ratesCount);
         }
 
-        Label Counter = new Label()
+        void OutputCounter(int ratesCount) => UpperPanel.Right = new Label
         {
+            Content = "Rates\nCount:\n  " + ratesCount.ToString(),
             VerticalAlignment = VerticalAlignment.Center,
             FontSize = 15,
             FontWeight = FontWeights.SemiBold,
@@ -90,17 +37,6 @@ namespace Restaurant
             Foreground = new SolidColorBrush(Colors.Brown)
         };
 
-        public void OutputCounter(int ratesCount)
-        {
-            if (!panelUp.Panel.Children.Contains(Counter))
-            {
-                Counter.Content = "Rates\nCount:\n  " + ratesCount.ToString();
-                panelUp.Panel.Children.Add(Counter);
-            }
-            Counter.Content = "Rates\nCount:\n  " + ratesCount.ToString();
-            Grid.SetColumn(Counter, 2);
-        }
-
-        public void FreeHand() => FoodInHandImage = new Image();
+        void FreeHand() => LowerPanel.Right = new Image();
     }
 }

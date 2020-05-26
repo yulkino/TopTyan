@@ -14,93 +14,78 @@ namespace Restaurant
     /// </summary>
     public partial class MainWindow : Window, IInterpretatable
     {
-        public Point[] TableForFood = new Point[7]
-        {
-            new Point(1, 0),
-            new Point(2, 0),
-            new Point(3, 0),
-            new Point(4, 0),
-            new Point(5, 0),
-            new Point(6, 0),
-            new Point(7, 0),
-        };
-        public InfoPanel panelUp = new InfoPanel();
-        public InfoPanel panelDown = new InfoPanel();
-        Interpretator e;
+        public InfoPanel UpperPanel { get; } = new InfoPanel();
+        public InfoPanel LowerPanel { get; } = new InfoPanel();
         List<TableVisual> TablesVisual = new List<TableVisual>();
-
         public Queue<EventData> EventQueue { get; } = new Queue<EventData>();
-
         public Dictionary<Event, Action<EventData>> Actions { get; private set; }
-
-        public void FillDictionary()
-        {
-            Actions = new Dictionary<Event, Action<EventData>>
-            {
-                { Event.CreatedTable, eventData =>  DrawTable((Point)eventData.Data[0])},
-                { Event.GuestArrived, eventData => DrawGuest((Point)eventData.Data[0])},
-                { Event.GuestGone, eventData => CleanTableImage((Point)eventData.Data[0])},
-                { Event.RatingUpdated, eventData => OutputStars((int)eventData.Data[0], (int)eventData.Data[1])},
-                { Event.DishTaken, eventData => AddInInventory((TableState)eventData.Data[0])},
-                { Event.WaiterMoved, eventData => MakeStepsWithAnimation((int)eventData.Data[0], (int)eventData.Data[1], (Point)eventData.Data[2])},
-                { Event.OrderAccepted, eventData => TablesVisual.FirstOrDefault(p => p.Position == (Point)eventData.Data[0]).InitializeOrder((TableState)eventData.Data[1])},
-                { Event.ServedTable, eventData => OutputDishOnTable((Point)eventData.Data[0], (TableState)eventData.Data[1])},
-                { Event.FinishGame, eventData => FinishGame() }
-            };
-        }
 
         public MainWindow()
         {
-            e = new Interpretator(new Game(), this);
             InitializeComponent();
             DrawFloor();
             FillDictionary();
-            SetInfoPanel();
-            DrawTablesForFood();
+            SetInfoPanels();
             StartPlayerMovement();
             GetBackgroundInfoPanels();
             OutputStars(5, 1);
         }
 
-        public void GetBackgroundInfoPanels()
+        void FillDictionary() => Actions = new Dictionary<Event, Action<EventData>>
         {
-            var backInfoFirst = new ImageBrush(GetImage("texture\\back0.png").Source);
-            panelUp.Panel.Background = backInfoFirst;
-            backInfoFirst.TileMode = TileMode.Tile;
+            { Event.CreatedTable, eventData =>  DrawTable((Point)eventData.Data[0])},
+            { Event.GuestArrived, eventData => DrawGuest((Point)eventData.Data[0])},
+            { Event.GuestGone, eventData => CleanTableImage((Point)eventData.Data[0])},
+            { Event.CreatedTablesForFood, eventData =>  DrawTablesForFood((Point[])eventData.Data[0])},
+            { Event.RatingUpdated, eventData => OutputStars((int)eventData.Data[0], (int)eventData.Data[1])},
+            { Event.DishTaken, eventData => AddInInventory((int)eventData.Data[0])},
+            { Event.WaiterMoved, eventData => MakeStepsWithAnimation((int)eventData.Data[0], (int)eventData.Data[1], (Point)eventData.Data[2])},
+            { Event.OrderAccepted, eventData => TablesVisual.FirstOrDefault(p => p.Position == (Point)eventData.Data[0]).InitializeOrder((int)eventData.Data[1])},
+            { Event.ServedTable, eventData => OutputDishOnTable((Point)eventData.Data[0], (int)eventData.Data[1])},
+            { Event.FinishGame, eventData => FinishGame() }
+        };
+
+        void GetBackgroundInfoPanels()
+        {
+            SetBackgroundInfoPanel(UpperPanel, "texture\\back0.png");
+            SetBackgroundInfoPanel(LowerPanel,"texture\\back.png");
             var contourImage = GetImage("texture\\DishInHand\\Contour.png");
             contourImage.Stretch = Stretch.Fill;
-            panelDown.Panel.Children.Add(contourImage);
+            LowerPanel.Panel.Children.Add(contourImage);
             Grid.SetColumn(contourImage, 2);
-            var backInfoSecond = new ImageBrush(GetImage("texture\\back.png").Source);
-            panelDown.Panel.Background = backInfoSecond;
-            backInfoSecond.TileMode = TileMode.Tile;
         }
 
-        public void SetInfoPanel()
+        void SetBackgroundInfoPanel(InfoPanel infoPanel, string img)
         {
-            Grid1.Children.Add(panelUp.Panel);
-            Grid.SetRow(panelUp.Panel, 0);
-            Grid1.Children.Add(panelDown.Panel);
-            Grid.SetRow(panelDown.Panel, 2);
+            var backInfo = new ImageBrush(GetImage(img).Source);
+            infoPanel.Panel.Background = backInfo;
+            backInfo.TileMode = TileMode.Tile;
         }
 
-        public void DrawTable(Point position)
+        void SetInfoPanels()
+        {
+            Grid1.Children.Add(UpperPanel.Panel);
+            Grid.SetRow(UpperPanel.Panel, 0);
+            Grid1.Children.Add(LowerPanel.Panel);
+            Grid.SetRow(LowerPanel.Panel, 2);
+        }
+
+        void DrawTable(Point position)
         {
             TablesVisual.Add(new TableVisual(this) { Position = position });
             Draw(GetImage("texture\\Guests\\DefaultTable.png"), position);
         }
 
-        public void DrawTablesForFood()
+        void DrawTablesForFood(Point[] tableForFood)
         {
-
-            for (var forf = 0; forf <= 6; forf++)
+            for (var i = 0; i <= 6; i++)
             {
-                Draw(GetImage("texture\\TableForFood\\TableForFood.png"), TableForFood[forf]);
-                Draw(GetImage(Textures.FoodImages[forf]), TableForFood[forf]);
+                Draw(GetImage("texture\\TableForFood\\TableForFood.png"), tableForFood[i]);
+                Draw(GetImage(Textures.FoodImages[i]),tableForFood[i]);
             }
         }
 
-        public void DrawGuest(Point position)
+        void DrawGuest(Point position)
         {
             var image = GetImage(Textures.GuestImages[new Random().Next(0, 5)]);
             TablesVisual.FirstOrDefault(p => p.Position == position).Guest = image;
@@ -124,12 +109,12 @@ namespace Restaurant
             Stream imageStreamSource = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
             BitmapDecoder decoder = BitmapDecoder.Create(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
             BitmapSource bitmapSource = decoder.Frames[0];
-            Image myImage = new Image();
-            myImage.Source = bitmapSource;
-            return myImage;
+            Image image = new Image();
+            image.Source = bitmapSource;
+            return image;
         }
 
-        public static void ReplaceImage(Image image, string path)
+        void ChangeWaiterImage(Image image, string path)
         {
             Stream imageStreamSource = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
             BitmapDecoder decoder = BitmapDecoder.Create(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
@@ -137,7 +122,7 @@ namespace Restaurant
             image.Source = bitmapSource;
         }
 
-        public void DrawFloor()
+        void DrawFloor()
         {
             ImageBrush brush = new ImageBrush(GetImage("texture\\floor.jpg").Source);
             floor.Background = brush;
@@ -145,9 +130,9 @@ namespace Restaurant
             brush.Viewport = new Rect(0, 0, 0.1, 0.1);
         }
 
-        public void FinishGame()
+        void FinishGame()
         {
-            if (MessageBox.Show("you lose (вы делали это без души)") == MessageBoxResult.OK)
+            if (MessageBox.Show("                 YOU LOSE\n     (вы делали это без души)") == MessageBoxResult.OK)
                 Environment.Exit(0);
         }
     }

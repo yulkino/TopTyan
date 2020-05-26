@@ -5,7 +5,7 @@ namespace Restaurant
 {
     partial class MainWindow : Window
     {
-        public void CleanTableImage(Point position)
+        void CleanTableImage(Point position)
         {
             var tableVisual = TablesVisual.FirstOrDefault(p => p.Position == position);
             if (tableVisual.Dish != null)

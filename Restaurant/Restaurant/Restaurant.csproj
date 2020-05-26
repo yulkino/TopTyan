@@ -59,6 +59,7 @@
     <Compile Include="Interpretation\EventData.cs" />
     <Compile Include="Interpretation\IInterpretatable.cs" />
     <Compile Include="Interpretation\Interpretator.cs" />
+    <Compile Include="Logic\DefaultParams.cs" />
     <Compile Include="Visual\InfoPanelProcessing.cs" />
     <Compile Include="Visual\TableVisual.cs" />
     <Page Include="Visual\MainWindow.xaml">

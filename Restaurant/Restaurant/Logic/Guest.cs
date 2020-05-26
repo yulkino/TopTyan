@@ -6,18 +6,19 @@ namespace Restaurant
 {
     public class Guest
     {
-        public Game Environment; 
-        public TableState Order;
-        public int NumberOfTable;
-        public bool IsOrderAccepted;
-        public DispatcherTimer TimerForOrder = new DispatcherTimer();
+        Game Environment; 
+        public TableState Order { get; set; }
+        public int NumberOfTable { get; set; }
+        public bool IsOrderAccepted { get; set; }
+        DispatcherTimer TimerForOrder = new DispatcherTimer();
 
         public Guest(Game rest)
         {
             Environment = rest;
+            SetTimer();
         }
 
-        public void SetTimer()
+        void SetTimer()
         {
             TimerForOrder.Interval = TimeSpan.FromSeconds(25);
             TimerForOrder.Tick += (sender, args) =>
@@ -53,5 +54,7 @@ namespace Restaurant
             Order = (TableState)new Random().Next(1, 7);
             Environment.EventQueue.Enqueue(new EventData(Event.OrderAccepted, new List<object> { Environment.Tables[NumberOfTable].Position, Order }));
         }
+
+        public void StopTimer() => TimerForOrder.Stop();
     }
 }

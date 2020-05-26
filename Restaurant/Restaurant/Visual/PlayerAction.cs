@@ -8,28 +8,26 @@ namespace Restaurant
 {
     public partial class MainWindow : Window
     {
-        public Image waiter;
-        private bool MovingLocked;
+        Image waiter;
+        bool movingLocked;
 
-        public void StartPlayerMovement()
+        void StartPlayerMovement()
         {
             waiter = GetImage(Textures.PlayerMovement[3]);
             Grid.SetZIndex(waiter, 3);
             floor.Children.Add(waiter);
         }
 
-        public void OutputDishOnTable(Point position, TableState dishInHand)
+        void OutputDishOnTable(Point position, int dishInHand)
         {
-            var dishForGuest = GetImage(Textures.FoodOnTable[(int)dishInHand - 1]);
+            var dishForGuest = GetImage(Textures.FoodOnTable[dishInHand - 1]);
             Draw(dishForGuest, position);
             FreeHand();
         }
 
-
-
         public void KeyDetected(object sender, KeyEventArgs e)
         {
-            if (MovingLocked) return;
+            if (movingLocked) return;
             switch (e.Key)
             {
                 case Key.W:
@@ -50,17 +48,17 @@ namespace Restaurant
             }
         }
 
-        public void MoveWaiter(Point position)
+        void MoveWaiter(Point position)
         {
             Grid.SetColumn(waiter, (int)position.X);
             Grid.SetRow(waiter, (int)position.Y);
         }
 
-        private void MakeStepsWithAnimation(int dx, int dy, Point position)
+        void MakeStepsWithAnimation(int dx, int dy, Point position)
         {
             int index = dx == 1 ? 1 : dx == -1 ? 2 : dy == 1 ? 3 : 0;
-            ReplaceImage(waiter, Textures.PlayerMovement[index]);
-            MovingLocked = true;
+            ChangeWaiterImage(waiter, Textures.PlayerMovement[index]);
+            movingLocked = true;
             ThicknessAnimation animation = new ThicknessAnimation()
             {
                 From = new Thickness(0, 0, 0, 0),
@@ -73,7 +71,7 @@ namespace Restaurant
             animation.Completed += (sender, args) =>
             {
                 MoveWaiter(position);
-                MovingLocked = false;
+                movingLocked = false;
             };
             Storyboard.SetTarget(animation, waiter);
             Storyboard.SetTargetProperty(animation, new PropertyPath(MarginProperty));

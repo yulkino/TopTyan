@@ -9,18 +9,16 @@ namespace Restaurant
     static class Rating
     {
         public static int Grade { get => CountRating == 0 ? 0 : SumRating / CountRating; }
-        public static int SumRating = 5;
-        public static int CountRating = 1;
+        public static int SumRating { get; private set; } = 5;
+        public static int CountRating { get; private set; } = 1;
 
         public static  void UpdateRating(Table table, Guest guest)
         {
             if (Grade < 0) return;
-            var rnd = new Random();
             CountRating++;
-            if (table.Served && table.FoodOnTable == guest.Order) SumRating += rnd.Next(4, 5);
-            else if (!table.Served)
-                SumRating += 0;
-            else SumRating += rnd.Next(1, 3);
+            if (table.Served && table.FoodOnTable == guest.Order) SumRating += new Random().Next(4, 5);
+            else if (!table.Served) SumRating += 0;
+            else SumRating += new Random().Next(1, 3);
         }
     }
 }

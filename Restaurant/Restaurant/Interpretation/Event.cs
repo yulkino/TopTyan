@@ -14,6 +14,7 @@ namespace Restaurant
         PressedA,
         PressedW,
         CreatedTable,
+        CreatedTablesForFood,
         GuestArrived,
         GuestGone,
         RatingUpdated,
